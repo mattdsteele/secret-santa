@@ -3,7 +3,7 @@ import "firebase/firestore";
 import "firebase/auth";
 import Vue from "vue";
 import VueFire from "vuefire";
-import { firebaseConfig, firestoreSettings } from "./firebase-config";
+import { firebaseConfig, firestoreSettings } from "@/store/config";
 
 import Component from "vue-class-component";
 Component.registerHooks(["firestore"]);

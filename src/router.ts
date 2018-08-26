@@ -1,6 +1,6 @@
 import Vue from "vue";
 import Router from "vue-router";
-import { firebase } from "@/store-old/firestore";
+import { firebase } from "@/store/firestore";
 
 Vue.use(Router);
 
@@ -9,7 +9,8 @@ const router = new Router({
     {
       path: "/",
       name: "home",
-      component: () => import(/* webpackChunkName: "Home" */ './views/Home.vue'),
+      component: () =>
+        import(/* webpackChunkName: "Home" */ "./views/Home.vue"),
       meta: {
         public: true
       }
@@ -17,12 +18,14 @@ const router = new Router({
     {
       path: "/about",
       name: "about",
-      component: () => import(/* webpackChunkName: "about" */ './views/About.vue'),
+      component: () =>
+        import(/* webpackChunkName: "about" */ "./views/About.vue")
     },
     {
       path: "/sign-in",
       name: "signin",
-      component: () => import(/* webpackChunkName: "signin" */ './views/SignIn.vue'),
+      component: () =>
+        import(/* webpackChunkName: "signin" */ "./views/SignIn.vue"),
       meta: {
         public: true
       }

@@ -4,7 +4,7 @@
 <script lang="ts">
 import Vue from "vue";
 import firebaseui from "firebaseui";
-import { firebase } from "@/store-old/firestore";
+import { firebase } from "@/store/firestore";
 import Component from "vue-class-component";
 import { Action, namespace } from "vuex-class";
 

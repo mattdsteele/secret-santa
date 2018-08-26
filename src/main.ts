@@ -4,9 +4,9 @@ import App from "./App.vue";
 import router from "./router";
 import "vue-material/dist/vue-material.min.css";
 import "firebaseui/dist/firebaseui.css";
-import './registerServiceWorker';
+import "./registerServiceWorker";
 
-import "./store-old/firestore";
+import "@/store/firestore";
 import store from "./store";
 
 Vue.config.productionTip = false;

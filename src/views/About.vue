@@ -19,7 +19,7 @@
 
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
-import { db } from "@/store-old/firestore";
+import { db } from "@/store/firestore";
 import { User } from "firebase";
 import { namespace } from "vuex-class";
 const login = namespace("login");
