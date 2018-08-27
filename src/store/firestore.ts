@@ -11,7 +11,7 @@ Component.registerHooks(["firestore"]);
 Vue.use(VueFire);
 firebase.initializeApp(firebaseConfig);
 
-export const db = firebase.firestore();
+const db = firebase.firestore();
 db.settings(firestoreSettings);
 
-export { firebase };
+export { firebase, db };
