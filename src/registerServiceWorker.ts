@@ -1,4 +1,5 @@
 /* tslint:disable:no-console */
+declare var process: any;
 
 import { register } from 'register-service-worker';
 
