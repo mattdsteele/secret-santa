@@ -4,6 +4,7 @@ import VueMarkdown from 'vue-markdown';
 import App from "./App.vue";
 import router from "./router";
 import "vue-material/dist/vue-material.min.css";
+import 'vue-material/dist/theme/black-green-light.css' // This line here
 import "firebaseui/dist/firebaseui.css";
 import "./registerServiceWorker";
 
