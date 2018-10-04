@@ -2,6 +2,7 @@ import Vue from "vue";
 import Vuex, { StoreOptions } from "vuex";
 import { RootState } from "@/store/types";
 import { login } from "@/store/login";
+import { list } from './list';
 import { firebaseMutations } from "vuexfire";
 
 Vue.use(Vuex);
@@ -14,7 +15,8 @@ const store: StoreOptions<RootState> = {
     ...firebaseMutations
   },
   modules: {
-    login
+    login,
+    list
   }
 };
 
