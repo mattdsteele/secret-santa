@@ -20,7 +20,7 @@ export default class HelloWorld extends Vue {
     this.loginFn();
     const uiConfig = {
       signInFlow: "popup",
-      signInSuccessUrl: "#/about",
+      signInSuccessUrl: "#/list",
       signInOptions: [
         firebase.auth.GoogleAuthProvider.PROVIDER_ID,
         firebase.auth.FacebookAuthProvider.PROVIDER_ID
