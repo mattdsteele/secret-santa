@@ -1,4 +1,4 @@
-import { db } from "@/store/firestore";
+import { db, storage } from "@/store/firestore";
 import { RootState } from "@/store/types";
 import { User } from "firebase";
 import { ActionTree } from "vuex";
@@ -25,6 +25,8 @@ export const actions: ActionTree<ListState, RootState> = {
       await context.bindFirebaseRef('currentYearList', result);
       await context.commit('setListRef', result);
     }
+    const url = await storage.ref('img/IMG_3905.jpg').getDownloadURL();
+    console.log(`url ${url}`);
   }),
   async updateUserList(context, updatedList: string) {
     await context.commit('updateList', updatedList);
