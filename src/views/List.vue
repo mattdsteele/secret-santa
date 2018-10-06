@@ -5,7 +5,7 @@
     <label>Your Wish List:</label>
     <md-textarea :value="wishlist" @input="updateList($event)" rows="10" class="txt"></md-textarea>
 </md-field>
-<md-button @click="update()">Update</md-button>
+<md-button class="md-raised md-primary" @click="update()">Update</md-button>
 <hr>
 <vue-markdown :source="updatedList" v-if="updatedList"></vue-markdown>
 </div>
@@ -32,14 +32,15 @@ export default class List extends Vue {
     private updatedList:any = null;
     private async created() {
         await this.init(this.user);
-        console.log('initted');
-        console.log('wishlist', this.wishlist);
+        console.log('got it', this.user, this.currentYearList, this.wishlist);
+        this.updatedList = this.wishlist;
     }
     private updateList(newList: string) {
         this.updatedList = newList;
     }
-    private update() {
-        this.updateUserList(this.updatedList);
+    private async update() {
+        await this.updateUserList(this.updatedList);
+        this.$router.push('/');
     }
 }
 </script>
@@ -49,7 +50,7 @@ textarea.md-textarea.md-textarea {
     font-family: 'Consolas', Courier, monospace;
 }
 .txt.txt.txt {
-    height: 300px;
+    height: 500px;
     max-height: none;
 }
 </style>

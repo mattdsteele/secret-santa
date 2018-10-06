@@ -3,7 +3,6 @@
   <md-app-toolbar md-elevation="1">
       <h3 class="md-title" style="flex: 1">Secret Santa</h3>
       <md-button @click="route('')" class="">Home</md-button>
-      <md-button @click="route('about')" class="">About</md-button>
       <md-button @click="route('list')" class="md-raised md-primary" v-if="user">List</md-button>
       <md-button @click="route('sign-in')" v-if="!user" class="md-raised md-primary">Sign In</md-button>
       <md-avatar class="md-avatar-icon" v-if="user"><img :src="user.photoURL"></md-avatar>

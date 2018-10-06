@@ -4,21 +4,9 @@ import { User } from "firebase";
 import { ActionTree } from "vuex";
 import { firebaseAction } from "vuexfire";
 import { ListState } from '@/store/list/types';
+import {defaultWishlist} from '../../wishlist';
 
 const currentYear = 2018;
-const defaultWishlist = `
-# My Wish List
-
-## Favorite Books
-
-* How to Win At Everything
-* Best Buds For Life
-
-## Favorite Stores
-
-* The Container Store
-* Boxes 'R Us
-`;
 
 export const actions: ActionTree<ListState, RootState> = {
   init: firebaseAction(async (context: any, user: User) => {
@@ -41,5 +29,6 @@ export const actions: ActionTree<ListState, RootState> = {
   async updateUserList(context, updatedList: string) {
     await context.commit('updateList', updatedList);
     await context.state.listRef!.update({ list: updatedList });
+    console.log('updated user list');
   }
 };

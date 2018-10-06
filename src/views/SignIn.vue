@@ -33,7 +33,7 @@ export default class HelloWorld extends Vue {
     auth.onAuthStateChanged(async user => {
       if (user) {
         await this.loginAction(user);
-        this.$router.push("about");
+        this.$router.push("list");
       }
     });
   }
