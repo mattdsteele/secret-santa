@@ -1,5 +1,9 @@
-import firebase from 'firebase';
-
+import firebase from 'firebase/app';
+import 'firebase/firestore';
+console.log(
+  process.env.REACT_APP_FIREBASE_API_KEY,
+  process.env.REACT_APP_FIREBASE_MESSAGE_SENDER_ID
+);
 export const firebaseConfig = {
   apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
   authDomain: 'steele-secret-santa.firebaseapp.com',
@@ -9,4 +13,10 @@ export const firebaseConfig = {
   messagingSenderId: process.env.REACT_APP_FIREBASE_MESSAGE_SENDER_ID
 };
 
-export { firebase };
+firebase.initializeApp(firebaseConfig);
+const firestore = firebase.firestore();
+const firestoreSettings = {
+  timestampsInSnapshots: true
+};
+firestore.settings(firestoreSettings);
+export { firebase, firestore };
