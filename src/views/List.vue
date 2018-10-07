@@ -13,44 +13,61 @@
 </template>
 
 <script lang="ts">
-import Vue from 'vue'
-import { Prop, Component } from 'vue-property-decorator';
+import Vue from "vue";
+import { Prop, Component } from "vue-property-decorator";
 
 import { db } from "@/store/firestore";
 import { User } from "firebase";
 import { State, Getter, namespace } from "vuex-class";
+import { setTimeout } from "timers";
 const login = namespace("login");
-const list = namespace('list');
+const list = namespace("list");
 
 @Component
 export default class List extends Vue {
-    @login.State("user") private user!: User;
-    @list.Action('init') private init: any;
-    @list.Action('updateUserList') private updateUserList: any;
-    @list.State('currentYearList') private currentYearList: any;
-    @list.Getter('wishlist') private wishlist!: string;
-    private updatedList:any = null;
-    private async created() {
-        await this.init(this.user);
-        console.log('got it', this.user, this.currentYearList, this.wishlist);
-        this.updatedList = this.wishlist;
+  @login.State("user")
+  private user!: User;
+  @list.Action("init")
+  private init: any;
+  @list.Action("updateUserList")
+  private updateUserList: any;
+  @list.State("currentYearList")
+  private currentYearList: any;
+  @list.Getter("wishlist")
+  private wishlist!: string;
+  private updatedList: any = null;
+  private async checkForUser() {
+    if (this.user) {
+      await this.init(this.user);
+      this.updatedList = this.wishlist;
+      return true;
     }
-    private updateList(newList: string) {
-        this.updatedList = newList;
+    return false;
+  }
+  private async mounted() {
+    let hasUser = await this.checkForUser();
+    if (!hasUser) {
+      setTimeout(async () => {
+        hasUser = await this.checkForUser();
+      }, 400);
     }
-    private async update() {
-        await this.updateUserList(this.updatedList);
-        this.$router.push('/');
-    }
+  }
+  private updateList(newList: string) {
+    this.updatedList = newList;
+  }
+  private async update() {
+    await this.updateUserList(this.updatedList);
+    this.$router.push("/");
+  }
 }
 </script>
 
 <style>
 textarea.md-textarea.md-textarea {
-    font-family: 'Consolas', Courier, monospace;
+  font-family: "Consolas", Courier, monospace;
 }
 .txt.txt.txt {
-    height: 500px;
-    max-height: none;
+  height: 500px;
+  max-height: none;
 }
 </style>

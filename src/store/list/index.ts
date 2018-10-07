@@ -6,7 +6,6 @@ import { mutations } from "./mutations";
 
 const getters: GetterTree<ListState, RootState> = {
   wishlist: state => {
-    console.log("checking wihslist", state.currentYearList);
     return state.currentYearList && state.currentYearList.list;
   }
 };

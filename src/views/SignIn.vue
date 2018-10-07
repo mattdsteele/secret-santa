@@ -11,7 +11,8 @@ import { Action, namespace } from "vuex-class";
 const login = namespace("login");
 @Component
 export default class HelloWorld extends Vue {
-  @login.Action("doLogin") private loginAction: any;
+  @login.Action("doLogin")
+  private loginAction: any;
   private mounted() {
     let ui = firebaseui.auth.AuthUI.getInstance();
     if (!ui) {
@@ -32,8 +33,13 @@ export default class HelloWorld extends Vue {
     const auth = firebase.auth();
     auth.onAuthStateChanged(async user => {
       if (user) {
-        await this.loginAction(user);
-        this.$router.push("list");
+        const { newUser } = await this.loginAction(user);
+        console.log("logged in");
+        if (newUser) {
+          this.$router.push("register");
+        } else {
+          this.$router.push("list");
+        }
       }
     });
   }

@@ -16,16 +16,15 @@ const router = new Router({
       }
     },
     {
-      path: "/list",
-      name: "list",
+      path: "/register",
+      name: "register",
       component: () =>
-        import(/* webpackChunkName: "about" */ "./views/List.vue")
+        import(/* webpackChunkName: "register" */ "./views/Register.vue")
     },
     {
-      path: "/about",
-      name: "about",
-      component: () =>
-        import(/* webpackChunkName: "about" */ "./views/About.vue")
+      path: "/list",
+      name: "list",
+      component: () => import(/* webpackChunkName: "list" */ "./views/List.vue")
     },
     {
       path: "/sign-in",

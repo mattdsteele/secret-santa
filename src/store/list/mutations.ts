@@ -1,4 +1,4 @@
-import { ListState } from '@/store/list/types';
+import { ListState } from "@/store/list/types";
 import { MutationTree } from "vuex";
 
 export const mutations: MutationTree<ListState> = {
@@ -7,5 +7,9 @@ export const mutations: MutationTree<ListState> = {
   },
   setListRef(state, listRef: firebase.firestore.DocumentReference) {
     state.listRef = listRef;
+  },
+  logout(state) {
+    state.listRef = undefined;
+    state.currentYearList = undefined;
   }
 };
