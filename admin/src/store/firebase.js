@@ -1,5 +1,6 @@
 import firebase from 'firebase/app';
 import 'firebase/firestore';
+import 'firebase/functions';
 console.log(
   process.env.REACT_APP_FIREBASE_API_KEY,
   process.env.REACT_APP_FIREBASE_MESSAGE_SENDER_ID
@@ -19,4 +20,5 @@ const firestoreSettings = {
   timestampsInSnapshots: true
 };
 firestore.settings(firestoreSettings);
-export { firebase, firestore };
+const functions = firebase.functions();
+export { firebase, firestore, functions };
