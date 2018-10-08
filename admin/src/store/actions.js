@@ -1,16 +1,24 @@
 import { firestore } from './firebase';
+import { actionNames } from './reducers';
 
 export const getUsers = () => async dispatch => {
-  console.log('store', firestore);
-  const list = await firestore
-    .collection('list')
-    .where('year', '==', 2018)
-    .get();
-  if (list.empty) {
+  const usersRef = await firestore.collection('users').get();
+  if (usersRef.empty) {
     console.log('empty list');
   } else {
-    const items = [];
-    list.forEach(list => items.push(list.data()));
-    console.log('my items', items);
+    const users = [];
+    usersRef.forEach(list => users.push(list.data()));
+    dispatch({ type: actionNames.SET_USERS, users });
+  }
+};
+
+export const getAllLists = () => async dispatch => {
+  const listsRef = await firestore.collection('list').get();
+  if (listsRef.empty) {
+    console.log('empty list');
+  } else {
+    const lists = [];
+    listsRef.forEach(list => lists.push(list.data()));
+    dispatch({ type: actionNames.SET_LISTS, lists });
   }
 };

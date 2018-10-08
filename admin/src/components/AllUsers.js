@@ -4,7 +4,7 @@ import { getUsers } from '../store/actions';
 
 const mapStateToProps = state => {
   return {
-    foo: state.foo.foo
+    users: state.users.usersList
   };
 };
 const mapDispatchToProps = dispatch => {
@@ -13,18 +13,28 @@ const mapDispatchToProps = dispatch => {
   };
 };
 
-class helloWorld extends Component {
+class allUsers extends Component {
   componentDidMount() {
     this.props.onConnect();
   }
   render() {
-    return <p>Hello world, {this.props.foo}</p>;
+    return (
+      <div>
+        <h2>Users</h2>
+        {this.props.users &&
+          this.props.users.map(user => (
+            <p key={user.uid}>
+              {user.displayName} - {user.email}
+            </p>
+          ))}
+      </div>
+    );
   }
 }
 
-const HelloWorld = connect(
+const AllUsers = connect(
   mapStateToProps,
   mapDispatchToProps
-)(helloWorld);
+)(allUsers);
 
-export { HelloWorld };
+export { AllUsers };

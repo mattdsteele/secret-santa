@@ -5,10 +5,21 @@ import * as serviceWorker from './serviceWorker';
 
 import { Provider } from 'react-redux';
 import { store } from './store';
-import { HelloWorld } from './components/HelloWorld';
+import { AllUsers } from './components/AllUsers';
+import { UserStatus } from './components/UserStatus';
+import { DispatchFirebaseFunction } from './components/FirebaseFunction';
+const Main = () => {
+  return (
+    <>
+      <AllUsers />
+      <UserStatus />
+      <DispatchFirebaseFunction />
+    </>
+  );
+};
 const main = (
   <Provider store={store}>
-    <HelloWorld />
+    <Main />
   </Provider>
 );
 ReactDOM.render(main, document.getElementById('root'));
