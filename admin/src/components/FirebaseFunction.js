@@ -12,8 +12,8 @@ const DispatchFirebaseFunction = () => {
     console.log(sanitizedMessage);
   };
   const email = async address => {
-    const { data } = await sendTestEmail(address);
-    console.log(`got data: ${data}`);
+    const data = await sendTestEmail(address);
+    console.log(data);
   };
 
   return (

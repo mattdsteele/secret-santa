@@ -1,7 +1,6 @@
-import * as functions from 'firebase-functions';
 import * as admin from 'firebase-admin';
+import * as functions from 'firebase-functions';
 import * as SparkPost from 'sparkpost';
-import { appendFileSync } from 'fs';
 
 admin.initializeApp();
 
@@ -16,7 +15,7 @@ export const sendTestEmail = functions.https.onCall(
     const client = new SparkPost(apiKey);
     const data = await client.transmissions.send({
       content: {
-        from: 'burt@secretsanta.steele.blue',
+        from: 'burt@secretsanta-mail.steele.blue',
         reply_to: 'matt@steele.blue',
         subject: 'Hello it is your secret santa!!',
         html: `
