@@ -19,7 +19,7 @@
   },
   "devDependencies": {
     "@types/sparkpost": "^2.1.4",
-    "firebase-tools": "^5.0.1",
+    "firebase-tools": "^5.1.1",
     "typescript": "~2.8.3"
   },
   "private": true
