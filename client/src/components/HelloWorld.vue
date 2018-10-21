@@ -48,8 +48,8 @@ export default class HelloWorld extends Vue {
   @photos.State('photoUrl')
   private photoUrl!: string;
   @photos.Action('init')
-  private initPhoto: any;
-  private giftee!: SecretSantaUser = null;
+  private initPhoto!: any;
+  private giftee: SecretSantaUser | null = null;
   private async created() {
     this.initPhoto();
     const repo = new FirestoreRepo(db);
