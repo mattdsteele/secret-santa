@@ -5,8 +5,8 @@
   "dependencies": {
     "commonmark": "^0.28.1",
     "firebase": "^5.5.6",
-    "react": "^16.6.0",
-    "react-dom": "^16.6.0",
+    "react": "^16.7.0-alpha.0",
+    "react-dom": "^16.7.0-alpha.0",
     "react-redux": "^5.1.0",
     "react-scripts": "2.0.5",
     "redux": "^4.0.1",

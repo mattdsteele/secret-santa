@@ -1,14 +1,14 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { Provider } from 'react-redux';
+import { AllUsers } from './components/AllUsers';
+import { BurtMailer } from './components/BurtMailer';
+import { DispatchFirebaseFunction } from './components/FirebaseFunction';
+import { UserStatus } from './components/UserStatus';
 import './index.css';
 import * as serviceWorker from './serviceWorker';
-
-import { Provider } from 'react-redux';
 import { store } from './store';
-import { AllUsers } from './components/AllUsers';
-import { UserStatus } from './components/UserStatus';
-import { DispatchFirebaseFunction } from './components/FirebaseFunction';
-import { BurtMailer } from './components/BurtMailer';
+
 const Main = () => {
   return (
     <>
