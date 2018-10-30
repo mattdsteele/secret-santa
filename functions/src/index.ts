@@ -7,6 +7,31 @@ admin.initializeApp();
 const firestore = admin.firestore();
 firestore.settings({ timestampsInSnapshots: false });
 
+const email = async (emails: string[], htmlBody: string, subject: string) => {
+  const apiKey = functions.config().sparkpost.apikey;
+  const client = new SparkPost(apiKey);
+  const response = await client.transmissions.send({
+    content: {
+      from: 'burt@secretsanta-mail.steele.blue',
+      reply_to: 'matt@steele.blue',
+      subject: 'A message from Burt the Elf',
+      html: `
+          <html><body>
+          ${htmlBody}
+        </body></html>
+          `
+    },
+    recipients: emails.map(address => {
+      return { address };
+    })
+  });
+  return response.results;
+};
+
+export const sendEmailAsBurt = functions.https.onCall(async data => {
+  const { emailList, content } = data;
+  return await email(emailList, content, 'A message from Burt the Elf');
+});
 export const helloWorld = functions.https.onCall(data => {
   console.log(`data: ${data}`);
   return { text: 'Hello world?!?!' };
@@ -14,23 +39,14 @@ export const helloWorld = functions.https.onCall(data => {
 
 export const sendTestEmail = functions.https.onCall(
   async (emailAddress: string) => {
-    const apiKey = functions.config().sparkpost.apikey;
-    const client = new SparkPost(apiKey);
-    const data = await client.transmissions.send({
-      content: {
-        from: 'burt@secretsanta-mail.steele.blue',
-        reply_to: 'matt@steele.blue',
-        subject: 'Hello it is your secret santa!!',
-        html: `
-          <html><body>
-            <p>Hello ${emailAddress}! I promise you that I am not spam.</p>
-            <p><a href="https://secretsanta.steele.blue">Check out Secret Santa</a></p>
-        </body></html>
-          `
-      },
-      recipients: [{ address: emailAddress }]
-    });
-    return { response: data };
+    const body = `<p>Hello ${emailAddress}! I promise you that I am not spam.</p>
+            <p><a href="https://secretsanta.steele.blue">Check out Secret Santa</a></p>`;
+    const emailResults = await email(
+      [emailAddress],
+      body,
+      'Hello SECRET SANTA'
+    );
+    return emailResults.id;
   }
 );
 

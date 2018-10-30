@@ -8,12 +8,14 @@ import { store } from './store';
 import { AllUsers } from './components/AllUsers';
 import { UserStatus } from './components/UserStatus';
 import { DispatchFirebaseFunction } from './components/FirebaseFunction';
+import { BurtMailer } from './components/BurtMailer';
 const Main = () => {
   return (
     <>
       <AllUsers />
       <UserStatus />
       <DispatchFirebaseFunction />
+      <BurtMailer />
     </>
   );
 };
