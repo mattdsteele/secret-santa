@@ -16,18 +16,18 @@
 </template>
 
 <script lang="ts">
-import Vue from "vue";
-import { Component } from "vue-property-decorator";
-import { namespace } from "vuex-class";
+import Vue from 'vue';
+import { Component } from 'vue-property-decorator';
+import { namespace } from 'vuex-class';
 
-const login = namespace("login");
+const login = namespace('login');
 @Component
 export default class Register extends Vue {
-  @login.Getter("email")
+  @login.Getter('email')
   private email!: string;
-  @login.Getter("name")
+  @login.Getter('name')
   private name!: string;
-  @login.Action("updateUser")
+  @login.Action('updateUser')
   private updateUser!: any;
   private updatedName!: string;
   private updatedEmail!: string;
@@ -40,7 +40,7 @@ export default class Register extends Vue {
       email: this.updatedEmail,
       displayName: this.updatedName
     });
-    this.$router.push("/");
+    this.$router.push('/list');
   }
 }
 </script>

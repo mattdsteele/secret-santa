@@ -1,4 +1,5 @@
 import { Firestore } from '@google-cloud/firestore';
+import { defaultWishlist } from './wishlist';
 
 export interface User {
   displayName: string;
@@ -7,6 +8,14 @@ export interface User {
   photoURL: string;
 }
 export class FirestoreRepo {
+  async createDefaultList(uid: string, year: number) {
+    const list = this.store.collection('list');
+    await list.add({
+      year,
+      user: uid,
+      list: defaultWishlist
+    });
+  }
   constructor(private store: Firestore) {}
   async santaFor(gifter: string, year: string): Promise<User> {
     try {
