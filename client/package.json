@@ -1,5 +1,5 @@
 {
-  "name": "santavue3",
+  "name": "steele-secret-santa",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -29,7 +29,6 @@
     "@types/jest": "^23.3.9",
     "@types/node": "^10.12.1",
     "@types/vue-markdown": "^2.2.1",
-    "@vue/cli-plugin-pwa": "^3.1.0",
     "@vue/cli-plugin-typescript": "^3.1.0",
     "@vue/cli-plugin-unit-jest": "^3.1.0",
     "@vue/cli-service": "^3.1.1",
@@ -74,6 +73,11 @@
     "testMatch": [
       "**/tests/unit/**/*.spec.(js|jsx|ts|tsx)|**/__tests__/*.(js|jsx|ts|tsx)"
     ],
-    "testURL": "http://localhost/"
+    "testURL": "http://localhost/",
+    "vue": {
+      "pwa": {
+        "name": "Steele Secret Santa"
+      }
+    }
   }
 }
