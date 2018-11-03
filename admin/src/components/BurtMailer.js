@@ -6,7 +6,21 @@ const writer = new Commonmark.HtmlRenderer();
 const sendEmailAsBurt = functions.httpsCallable('sendEmailAsBurt');
 
 function BurtMailer() {
-  const emailList = ['Matt S <orphum@gmail.com>'];
+  const matt = ['Matt S <orphum@gmail.com>'];
+  const rest = [
+    'Merle Steele <merleds2006@gmail.com>',
+    'Carla Steele <carlaps2006@gmail.com>',
+    'Patrick Steele <patrick.w.steele@gmail.com>',
+    'Eric Steele <e.steele@gmail.com>',
+    'Jessica Steele <jess.m.hensley@gmail.com>',
+    'Jessica Codr <jcake2@gmail.com>',
+    'Angela Steele <ange.m.steele@gmail.com>',
+    'Judy Steele <rsteele1@kc.rr.com>',
+    'Rick Steele <rickandjudysteele@gmail.com>'
+  ];
+  const fullEmailList = [...matt, ...rest];
+  const testMode = false;
+  const emailList = testMode ? matt : fullEmailList;
   const [content, setContent] = useState('');
   const [renderedResult, setRenderedResult] = useState('');
   const sendEmail = async e => {
