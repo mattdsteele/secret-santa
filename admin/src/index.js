@@ -4,6 +4,7 @@ import { Provider } from 'react-redux';
 import { AllUsers } from './components/AllUsers';
 import { BurtMailer } from './components/BurtMailer';
 import { DispatchFirebaseFunction } from './components/FirebaseFunction';
+import { Relationships } from './components/Relationships';
 import { UserStatus } from './components/UserStatus';
 import './index.css';
 import * as serviceWorker from './serviceWorker';
@@ -12,6 +13,7 @@ import { store } from './store';
 const Main = () => {
   return (
     <>
+      <Relationships />
       <AllUsers />
       <UserStatus />
       <DispatchFirebaseFunction />
