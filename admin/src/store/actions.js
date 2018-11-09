@@ -33,7 +33,31 @@ export const saveRelationships = relationships => async dispatch => {
     });
   }
 };
+export const saveYearPairings = (year, pairings) => async dispatch => {
+  const yearCollection = firestore.collection('pairings');
+  for (let i = 0; i < pairings.length; i++) {
+    const [gifter, giftee] = pairings[i];
+    await yearCollection.add({
+      year,
+      gifter: gifter.uid,
+      giftee: giftee.uid
+    });
+  }
+};
 
+export const getAllPairings = () => async dispatch => {
+  const relationshipsRef = await firestore
+    .collection('pairings')
+    .orderBy('year', 'asc')
+    .get();
+  if (relationshipsRef.empty) {
+    console.log('empty list');
+  } else {
+    const pairings = [];
+    relationshipsRef.forEach(list => pairings.push(list.data()));
+    dispatch({ type: actionNames.SET_PAIRINGS, pairings });
+  }
+};
 export const getAllRelationships = () => async dispatch => {
   const relationshipsRef = await firestore.collection('relationships').get();
   if (relationshipsRef.empty) {

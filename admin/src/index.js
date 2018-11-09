@@ -9,11 +9,15 @@ import { UserStatus } from './components/UserStatus';
 import './index.css';
 import * as serviceWorker from './serviceWorker';
 import { store } from './store';
+import { Pairings } from './components/Pairings';
+import { PairingHistory } from './components/PairingHistory';
 
 const Main = () => {
   return (
     <>
       <Relationships />
+      <Pairings />
+      <PairingHistory />
       <AllUsers />
       <UserStatus />
       <DispatchFirebaseFunction />

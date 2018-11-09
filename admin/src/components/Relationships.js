@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { saveRelationships, getAllRelationships } from '../store/actions';
+import { getAllRelationships, saveRelationships } from '../store/actions';
+import { User } from './User';
 
 const mapStateToProps = store => {
   return {
@@ -28,10 +29,10 @@ class relationships extends Component {
     this.props.saveList(this.state.relationships);
   }
   onPerson1Change(e) {
-    this.setState({ person1Id: e.target.value });
+    this.setState({ person1Id: e });
   }
-  onPerson2Change(e) {
-    this.setState({ person2Id: e.target.value });
+  onPerson2Change(v) {
+    this.setState({ person2Id: v });
   }
   userFor(id) {
     return this.props.users.filter(u => u.uid === id)[0];
@@ -60,22 +61,16 @@ class relationships extends Component {
       <>
         {this.props.users && (
           <>
-            <select
-              value={this.state.person1Id}
-              onChange={e => this.onPerson1Change(e)}
-            >
-              {this.props.users.map(u => (
-                <option value={u.uid}>{u.displayName}</option>
-              ))}
-            </select>
-            <select
-              value={this.state.person2Id}
-              onChange={e => this.onPerson2Change(e)}
-            >
-              {this.props.users.map(u => (
-                <option value={u.uid}>{u.displayName}</option>
-              ))}
-            </select>
+            <User
+              val={this.state.person1Id}
+              users={this.props.users}
+              onSelectChanged={v => this.onPerson1Change(v)}
+            />
+            <User
+              val={this.state.person2Id}
+              users={this.props.users}
+              onSelectChanged={v => this.onPerson2Change(v)}
+            />
             <button onClick={e => this.addEntry()}>Add Relationship</button>
           </>
         )}
