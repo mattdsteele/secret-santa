@@ -10,7 +10,7 @@ const mapStateToProps = state => {
 
 const conditionalPairingGenerator = ({ lists, year }) => {
   if (!lists) {
-    return <h1>Loading...</h1>;
+    return <h1>Generating pairings for {year}...</h1>;
   }
   const currentYearLists = lists.filter(l => l.year === year);
   if (currentYearLists.length === 0) {

@@ -71,7 +71,7 @@ const pairingGenerator = ({
       </>
     );
   } else {
-    return <h1>Generating pairings...</h1>;
+    return <h1>Generating pairings for {year}...</h1>;
   }
 };
 export const PairingGenerator = connect(
