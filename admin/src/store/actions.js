@@ -37,6 +37,7 @@ export const saveYearPairings = (year, pairings) => async dispatch => {
   const yearCollection = firestore.collection('pairings');
   for (let i = 0; i < pairings.length; i++) {
     const [gifter, giftee] = pairings[i];
+    console.log('saving pairing', gifter, giftee);
     await yearCollection.add({
       year,
       gifter: gifter.uid,
@@ -67,4 +68,11 @@ export const getAllRelationships = () => async dispatch => {
     relationshipsRef.forEach(list => relationships.push(list.data()));
     dispatch({ type: actionNames.SET_RELATIONSHIPS, relationships });
   }
+};
+export const saveNewYear = (newPairings, year) => async dispatch => {
+  const pairings = newPairings.map(({ gifter, giftee }) => {
+    return [{ uid: gifter }, { uid: giftee }];
+  });
+  console.log('pairings to do', pairings);
+  dispatch(saveYearPairings(year, pairings));
 };

@@ -20,11 +20,15 @@ const userReducer = (state = {}, action) => {
   }
 };
 
-const listReducer = (state = {}, action) => {
+const initialListState = {
+  year: new Date().getFullYear()
+};
+const listReducer = (state = initialListState, action) => {
   switch (action.type) {
     case actionNames.SET_LISTS:
       return {
-        all: action.lists
+        all: action.lists,
+        ...state
       };
     default: {
       return state;

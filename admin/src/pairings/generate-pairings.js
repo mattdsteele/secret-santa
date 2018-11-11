@@ -18,10 +18,20 @@ function shuffle(array, seed) {
   return array;
 }
 const seed = require('seed-random');
+
 export const makePairings = (users, realRandomValues = true) => {
-  const s = seed('pairing', { entropy: realRandomValues });
-  const randomizedGifters = shuffle(users, s);
-  let randomizedGiftees = shuffle([...users], s);
+  while (true) {
+    try {
+      return naiiveMakePairings([...users], realRandomValues);
+    } catch (e) {
+      console.log('circular, trying again');
+    }
+  }
+};
+export const naiiveMakePairings = (users, realRandomValues = true) => {
+  const shuffler = seed('pairing', { entropy: realRandomValues });
+  const randomizedGifters = shuffle(users, shuffler);
+  let randomizedGiftees = shuffle([...users], shuffler);
   return randomizedGifters.map(gifter => {
     let giftee = null;
     while (!giftee) {
@@ -29,7 +39,12 @@ export const makePairings = (users, realRandomValues = true) => {
       if (gifteeCandidate !== gifter) {
         giftee = randomizedGiftees.shift();
       } else {
-        randomizedGiftees = shuffle(randomizedGiftees, s);
+        if (randomizedGiftees.length === 1) {
+          throw new Error(
+            `ran out of users and they are equal, whaaat, ${gifteeCandidate}, ${gifter}`
+          );
+        }
+        randomizedGiftees = shuffle(randomizedGiftees, shuffler);
       }
     }
     return { gifter, giftee };

@@ -2,18 +2,31 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { makePairings } from '../pairings/generate-pairings';
 import { allValidPairings } from '../pairings/isValidPairing';
+import { saveNewYear } from '../store/actions';
 const mapStateToProps = state => {
   return {
     users: state.users.usersList,
     relationships: state.relationships.relationships,
-    pairings: state.pairings.pairings
+    pairings: state.pairings.pairings,
+    year: state.lists.year
   };
 };
 const mapDispatchToProps = dispatch => {
-  return {};
+  return {
+    addPairings(pairs, year) {
+      dispatch(saveNewYear(pairs, year));
+    }
+  };
 };
-const pairingGenerator = ({ users, relationships, pairings }) => {
+const pairingGenerator = ({
+  users,
+  relationships,
+  pairings,
+  addPairings,
+  year
+}) => {
   let pairingAttempt = 0;
+  console.log('add pairings', addPairings);
   const makeValidPairings = uids => {
     pairingAttempt++;
     console.log('pairing attempt', pairingAttempt);
@@ -40,16 +53,21 @@ const pairingGenerator = ({ users, relationships, pairings }) => {
     };
     return (
       <>
-        <h1>New Pairings</h1>
-        <ul>
-          {pairings.map(p => {
-            return (
-              <li>
-                {nameOfUser(p.gifter)} gifts to {nameOfUser(p.giftee)}
-              </li>
-            );
-          })}
-        </ul>
+        <div>
+          <h1>New Pairings</h1>
+          <ul>
+            {pairings.map(p => {
+              return (
+                <li>
+                  {nameOfUser(p.gifter)} gifts to {nameOfUser(p.giftee)}
+                </li>
+              );
+            })}
+          </ul>
+          <button onClick={() => addPairings(pairings, year)}>
+            Add Pairings
+          </button>
+        </div>
       </>
     );
   } else {

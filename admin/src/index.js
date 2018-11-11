@@ -3,8 +3,8 @@ import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { AllUsers } from './components/AllUsers';
 import { BurtMailer } from './components/BurtMailer';
+import { ConditionalPairingGenerator } from './components/ConditionalPairingGenerator';
 import { DispatchFirebaseFunction } from './components/FirebaseFunction';
-import { PairingGenerator } from './components/PairingGenerator';
 import { PairingHistory } from './components/PairingHistory';
 import { Pairings } from './components/Pairings';
 import { Relationships } from './components/Relationships';
@@ -16,7 +16,7 @@ import { store } from './store';
 const Main = () => {
   return (
     <>
-      <PairingGenerator />
+      <ConditionalPairingGenerator />
       <Relationships />
       <Pairings />
       <PairingHistory />
