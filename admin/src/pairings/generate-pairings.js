@@ -20,12 +20,18 @@ function shuffle(array, seed) {
 const seed = require('seed-random');
 export const makePairings = (users, realRandomValues = true) => {
   const s = seed('pairing', { entropy: realRandomValues });
-  let randomizedUsers = shuffle(users, s);
-  const pairings = [];
-  while (randomizedUsers.length > 0) {
-    const gifter = randomizedUsers.shift();
-    const giftee = randomizedUsers.shift();
-    pairings.push({ gifter, giftee });
-  }
-  return pairings;
+  const randomizedGifters = shuffle(users, s);
+  let randomizedGiftees = shuffle([...users], s);
+  return randomizedGifters.map(gifter => {
+    let giftee = null;
+    while (!giftee) {
+      const [gifteeCandidate] = randomizedGiftees;
+      if (gifteeCandidate !== gifter) {
+        giftee = randomizedGiftees.shift();
+      } else {
+        randomizedGiftees = shuffle(randomizedGiftees, s);
+      }
+    }
+    return { gifter, giftee };
+  });
 };
