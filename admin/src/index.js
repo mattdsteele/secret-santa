@@ -4,17 +4,19 @@ import { Provider } from 'react-redux';
 import { AllUsers } from './components/AllUsers';
 import { BurtMailer } from './components/BurtMailer';
 import { DispatchFirebaseFunction } from './components/FirebaseFunction';
+import { PairingGenerator } from './components/PairingGenerator';
+import { PairingHistory } from './components/PairingHistory';
+import { Pairings } from './components/Pairings';
 import { Relationships } from './components/Relationships';
 import { UserStatus } from './components/UserStatus';
 import './index.css';
 import * as serviceWorker from './serviceWorker';
 import { store } from './store';
-import { Pairings } from './components/Pairings';
-import { PairingHistory } from './components/PairingHistory';
 
 const Main = () => {
   return (
     <>
+      <PairingGenerator />
       <Relationships />
       <Pairings />
       <PairingHistory />

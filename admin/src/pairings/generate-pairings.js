@@ -18,8 +18,8 @@ function shuffle(array, seed) {
   return array;
 }
 const seed = require('seed-random');
-export const makePairings = users => {
-  const s = seed('pairing');
+export const makePairings = (users, realRandomValues = true) => {
+  const s = seed('pairing', { entropy: realRandomValues });
   let randomizedUsers = shuffle(users, s);
   const pairings = [];
   while (randomizedUsers.length > 0) {
