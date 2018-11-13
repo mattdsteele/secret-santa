@@ -9,8 +9,8 @@ firestore.settings({ timestampsInSnapshots: false });
 const apiKey = functions.config().sparkpost.apikey;
 
 export const sendEmailAsBurt = functions.https.onCall(async data => {
-  const { emailList, content } = data;
-  return await email(emailList, content, 'A message from Burt the Elf', apiKey);
+  const { emailList, content, subject = 'A message from Burt the Elf' } = data;
+  return await email(emailList, content, subject, apiKey);
 });
 
 export const sendTestEmail = functions.https.onCall(

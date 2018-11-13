@@ -23,6 +23,7 @@ function BurtMailer() {
   const emailList = testMode ? matt : fullEmailList;
   const [content, setContent] = useState('');
   const [renderedResult, setRenderedResult] = useState('');
+  const [subject, setSubject] = useState('A message from Burt the Elf');
   const sendEmail = async e => {
     e.preventDefault();
     console.log('okay send email', parser);
@@ -30,6 +31,7 @@ function BurtMailer() {
     console.log('parsed, content', htmlContent);
     const result = await sendEmailAsBurt({
       emailList,
+      subject,
       content: htmlContent
     });
     // Read result of the Cloud Function.
@@ -43,6 +45,14 @@ function BurtMailer() {
 
   return (
     <div>
+      <p>
+        Subject:{' '}
+        <input
+          name=""
+          value={subject}
+          onInput={e => setSubject(e.target.value)}
+        />
+      </p>
       <p>Emailers:</p>
       <ul>
         {emailList.map(e => (
