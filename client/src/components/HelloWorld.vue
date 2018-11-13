@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div v-if="giftee">
+    <div v-if="giftee && shouldDisplayGiftee">
       <h2>Your Secret Santa</h2>
       <p>{{giftee.displayName}}</p>
     </div>
@@ -50,6 +50,7 @@ export default class HelloWorld extends Vue {
   @photos.Action('init')
   private initPhoto!: any;
   private giftee: SecretSantaUser | null = null;
+  private shouldDisplayGiftee = false;
   private async created() {
     this.initPhoto();
     const repo = new FirestoreRepo(db);

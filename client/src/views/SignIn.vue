@@ -21,7 +21,7 @@ export default class HelloWorld extends Vue {
     this.loginFn();
     const uiConfig = {
       signInFlow: 'popup',
-      signInSuccessUrl: '#/list',
+      signInSuccessUrl: '#/post-auth',
       signInOptions: [
         firebase.auth.GoogleAuthProvider.PROVIDER_ID,
         firebase.auth.FacebookAuthProvider.PROVIDER_ID,
@@ -35,7 +35,6 @@ export default class HelloWorld extends Vue {
     auth.onAuthStateChanged(async user => {
       if (user) {
         const { newUser } = await this.loginAction(user);
-        console.log('logged in');
         if (newUser) {
           this.$router.push('register');
         } else {

@@ -6,6 +6,7 @@ import { User } from "firebase";
 export const mutations: MutationTree<LoginState> = {
   ...firebaseMutations,
   login(state, user: User) {
+    console.log('persisting user', user);
     state.user = user;
   },
   logout(state) {
