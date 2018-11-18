@@ -1,24 +1,29 @@
-declare module "*.vue" {
-  import Vue from "vue";
+declare module '*.vue' {
+  import Vue from 'vue';
   export default Vue;
 }
 
-declare module "vuefire" {
+declare module 'vuefire' {
   const VueFire: any;
   export default VueFire;
 }
-declare module "vue-material" {
+declare module 'vue-material' {
   const VueMaterial: any;
   export default VueMaterial;
 }
 
-declare module "firebaseui" {
+declare module 'firebaseui' {
   const FirebaseUi: any;
   export default FirebaseUi;
 }
 
-declare module "vuexfire" {
+declare module 'vuexfire' {
   const firebaseMutations: any;
   const firebaseAction: any;
   export { firebaseMutations, firebaseAction };
+}
+
+declare module 'vue-analytics' {
+  const VueAnalytics: any;
+  export default VueAnalytics;
 }

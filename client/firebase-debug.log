@@ -1,0 +1,23 @@
+[debug] [2018-11-18T01:25:09.654Z] ----------------------------------------------------------------------
+[debug] [2018-11-18T01:25:09.662Z] Command:       /usr/bin/node /mnt/c/Users/Matt/code/secret-santa/client/node_modules/.bin/firebase deploy --only hosting
+[debug] [2018-11-18T01:25:09.663Z] CLI Version:   6.1.0
+[debug] [2018-11-18T01:25:09.664Z] Platform:      linux
+[debug] [2018-11-18T01:25:09.664Z] Node Version:  v10.12.0
+[debug] [2018-11-18T01:25:10.234Z] Time:          Sat Nov 17 2018 19:25:09 GMT-0600 (GMT-06:00)
+[debug] [2018-11-18T01:25:10.234Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2018-11-18T01:25:10.274Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2018-11-18T01:25:10.276Z] > authorizing via signed-in user
+[debug] [2018-11-18T01:25:10.276Z] [iam] checking project steele-secret-santa for permissions ["firebase.projects.get","firebasehosting.sites.update"]
+[debug] [2018-11-18T01:25:10.283Z] >>> HTTP REQUEST POST https://cloudresourcemanager.googleapis.com/v1/projects/steele-secret-santa:testIamPermissions  
+
+[debug] [2018-11-18T01:25:10.697Z] <<< HTTP RESPONSE 200
+[debug] [2018-11-18T01:25:10.704Z] >>> HTTP REQUEST GET https://firebase.googleapis.com/v1beta1/projects/steele-secret-santa  
+ 
+[debug] [2018-11-18T01:25:11.148Z] <<< HTTP RESPONSE 200
+[info] 
+[info] === Deploying to 'steele-secret-santa'...
+[info] 
+[info] i  deploying hosting
+[debug] [2018-11-18T01:25:21.683Z] >>> HTTP REQUEST POST https://firebasehosting.googleapis.com/v1beta1/sites/steele-secret-santa/versions  
+

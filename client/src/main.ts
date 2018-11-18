@@ -1,19 +1,24 @@
+import '@/store/firestore';
+import 'firebaseui/dist/firebaseui.css';
 import Vue from 'vue';
-import VueMaterial from 'vue-material';
+import vueAnalyticsInstall from 'vue-analytics';
 import VueMarkdown from 'vue-markdown';
+import VueMaterial from 'vue-material';
+import 'vue-material/dist/theme/black-green-light.css'; // This line here
+import 'vue-material/dist/vue-material.min.css';
 import App from './App.vue';
 import router from './router';
-import 'vue-material/dist/vue-material.min.css';
-import 'vue-material/dist/theme/black-green-light.css'; // This line here
-import 'firebaseui/dist/firebaseui.css';
-
-import '@/store/firestore';
 import store from './store';
-console.log('stored...');
 
 Vue.config.productionTip = false;
-
 Vue.use(VueMaterial);
+Vue.use(
+  { install: vueAnalyticsInstall },
+  {
+    id: 'UA-30572618-3',
+    router
+  }
+);
 Vue.component('vue-markdown', VueMarkdown);
 
 new Vue({
