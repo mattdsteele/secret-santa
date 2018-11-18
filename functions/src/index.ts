@@ -2,6 +2,7 @@ import * as admin from 'firebase-admin';
 import * as functions from 'firebase-functions';
 import { email } from './email';
 import { FirestoreRepo } from './firestore-repo';
+import { makeSecretSantaEmail } from './emailTemplates';
 
 admin.initializeApp();
 const firestore = admin.firestore();
@@ -34,3 +35,18 @@ export const onUserCreate = functions.auth.user().onCreate(async user => {
   await repo.createDefaultList(uid, year);
   console.log(`Added default list for ${uid}`);
 });
+
+export const emailSecretPal = functions.https.onCall(
+  async ({ userId, year }) => {
+    const repo = new FirestoreRepo(firestore);
+    const userData = await repo.userData(userId);
+    const { gifteeData, list } = await repo.santaFor(userId, year);
+    const emailBody = makeSecretSantaEmail(gifteeData, list, userData);
+    await email(
+      [userData.email],
+      emailBody,
+      'Your Secret Pal has been chosen!',
+      apiKey
+    );
+  }
+);

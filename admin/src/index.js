@@ -12,6 +12,7 @@ import { UserStatus } from './components/UserStatus';
 import './index.css';
 import * as serviceWorker from './serviceWorker';
 import { store } from './store';
+import { PalEmailer } from './components/SecretPalEmailer';
 
 const Main = () => {
   return (
@@ -24,6 +25,7 @@ const Main = () => {
       <UserStatus />
       <DispatchFirebaseFunction />
       <BurtMailer />
+      <PalEmailer />
     </>
   );
 };
