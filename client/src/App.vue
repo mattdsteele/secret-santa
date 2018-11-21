@@ -6,7 +6,10 @@
       <md-button @click="route('list')" class="md-raised md-primary" v-if="user">List</md-button>
       <md-button @click="route('sign-in')" v-if="!user" class="md-raised md-primary">Sign In</md-button>
       <md-menu v-if="user">
-        <md-avatar class="md-avatar-icon"><img class="settings-avi" :src="user.photoURL" md-menu-trigger></md-avatar>
+        <md-avatar class="md-avatar-icon" v-if="user.photoURL">
+          <img class="settings-avi" :src="user.photoURL" md-menu-trigger>
+        </md-avatar>
+        <md-button md-menu-trigger v-if="!user.photoURL">Menu</md-button>
         <md-menu-content>
           <md-menu-item @click="route('register')">Settings</md-menu-item>
           <md-menu-item @click="logout()">Logout</md-menu-item>
@@ -20,24 +23,24 @@
 </template>
 
 <script lang="ts">
-import Vue from "vue";
-import Component from "vue-class-component";
-import router from "@/router";
-import { User } from "firebase";
-import { mapState, mapMutations } from "vuex";
-import { namespace } from "vuex-class";
-import { firebase } from "@/store/firestore";
+import Vue from 'vue';
+import Component from 'vue-class-component';
+import router from '@/router';
+import { User } from 'firebase';
+import { mapState, mapMutations } from 'vuex';
+import { namespace } from 'vuex-class';
+import { firebase } from '@/store/firestore';
 
-const login = namespace("login");
-const list = namespace("list");
+const login = namespace('login');
+const list = namespace('list');
 
 @Component
 export default class App extends Vue {
-  @login.State("user")
+  @login.State('user')
   private user!: User;
-  @login.Mutation("logout")
+  @login.Mutation('logout')
   private loginLogoutAction: any;
-  @list.Mutation("logout")
+  @list.Mutation('logout')
   private logoutAction: any;
   private route(url: string) {
     router.push(`/${url}`);
@@ -46,7 +49,7 @@ export default class App extends Vue {
     await firebase.auth().signOut();
     this.loginLogoutAction();
     this.logoutAction();
-    router.push("/");
+    router.push('/');
   }
 }
 </script>
@@ -54,7 +57,7 @@ export default class App extends Vue {
 
 <style scoped>
 #app {
-  font-family: "Avenir", Helvetica, Arial, sans-serif;
+  font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
