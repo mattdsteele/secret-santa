@@ -11,9 +11,15 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     async emailMatt(userId) {
-      console.log(`emailing ${userId}`);
       const res = await emailSecretPal({ userId, year: 2018 });
       console.log(res);
+    },
+    async emailEveryone(users) {
+      console.log('emailing everyone', users);
+      const results = await Promise.all(
+        users.map(u => emailSecretPal({ userId: u.uid, year: 2018 }))
+      );
+      console.log(results);
     }
   };
 };
@@ -31,6 +37,9 @@ const palEmailer = props => {
               </button>
             </p>
           ))}
+      <button onClick={() => props.emailEveryone(props.users)}>
+        Email everyone
+      </button>
     </>
   );
 };
