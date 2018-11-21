@@ -1,8 +1,8 @@
-import { Module, GetterTree } from "vuex";
-import { RootState } from "../types";
-import { ListState } from "./types";
-import { actions } from "./actions";
-import { mutations } from "./mutations";
+import { Module, GetterTree } from 'vuex';
+import { RootState } from '../types';
+import { ListState } from './types';
+import { actions } from './actions';
+import { mutations } from './mutations';
 
 const getters: GetterTree<ListState, RootState> = {
   wishlist: state => {
@@ -13,7 +13,8 @@ export const list: Module<ListState, RootState> = {
   namespaced: true,
   state: {
     currentYearList: undefined,
-    listRef: undefined
+    listRef: undefined,
+    editMode: false
   },
   actions,
   mutations,

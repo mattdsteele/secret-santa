@@ -6,7 +6,7 @@ export class FirestoreRepo {
   public async santaFor(
     gifter: string,
     year: string
-  ): Promise<SecretSantaUser> {
+  ): Promise<[SecretSantaUser, string]> {
     try {
       const results = await this.store
         .collection('pairings')
@@ -25,11 +25,26 @@ export class FirestoreRepo {
           .where('uid', '==', giftee)
           .get();
         const [gifteeUser] = gifteeResults.docs;
-        const gifteeData = gifteeUser.data();
-        return gifteeData as SecretSantaUser;
+        const gifteeData: SecretSantaUser = gifteeUser.data() as SecretSantaUser;
+        const list = await this.listFor(gifteeData.uid, parseInt(year, 10));
+        return [gifteeData, list];
       }
     } catch (e) {
       throw new Error(e);
+    }
+  }
+  private async listFor(user: string, year: number) {
+    const results = await this.store
+      .collection('list')
+      .where('year', '==', year)
+      .where('user', '==', user)
+      .get();
+    if (results.empty) {
+      throw new Error(`No list found for ${user}`);
+    } else {
+      const [userListRef] = results.docs;
+      const userListData = userListRef.data();
+      return userListData.list as string;
     }
   }
 }

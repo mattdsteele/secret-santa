@@ -1,10 +1,11 @@
 <template>
   <div>
-    <div v-if="giftee && shouldDisplayGiftee">
-      <h2>Your Secret Santa</h2>
-      <p>{{giftee.displayName}}</p>
+    <div v-if="giftee && !shouldHideSecretPal">
+      <h1>Your Secret Pal is {{giftee.displayName}}</h1>
+      <p>{{giftee.displayName}}'s Wishlist:</p>
+      <vue-markdown :source="secretPalList"></vue-markdown>
     </div>
-    <div v-if="user">
+    <div v-if="user && shouldHideSecretPal">
       <h2>Your Wishlist</h2>
       <vue-markdown :source="wishlist" v-if="wishlist"></vue-markdown>
     </div>
@@ -49,14 +50,18 @@ export default class HelloWorld extends Vue {
   private photoUrl!: string;
   @photos.Action('init')
   private initPhoto!: any;
+  @list.State('editMode')
+  private shouldHideSecretPal: any;
   private giftee: SecretSantaUser | null = null;
-  private shouldDisplayGiftee = false;
+  private secretPalList: string = '';
   private async created() {
-    this.initPhoto();
-    const repo = new FirestoreRepo(db);
     if (this.user) {
-      const santa = await repo.santaFor(this.user.uid, '2018');
+      const repo = new FirestoreRepo(db);
+      const [santa, secretPalList] = await repo.santaFor(this.user.uid, '2018');
       this.giftee = santa;
+      this.secretPalList = secretPalList;
+    } else {
+      this.initPhoto();
     }
   }
 }

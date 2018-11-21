@@ -2,11 +2,13 @@
 <div>
 <md-progress-bar md-mode="indeterminate" v-if="!updatedList"></md-progress-bar>
 <h1>My List</h1>
+<div v-if="editMode">
 <md-field>
     <label>Your Wish List:</label>
     <md-textarea :value="wishlist" @input="updateList($event)" rows="10" class="txt"></md-textarea>
 </md-field>
 <md-button class="md-raised md-primary" @click="update()">Update</md-button>
+</div>
 <hr>
 <vue-markdown :source="updatedList" v-if="updatedList"></vue-markdown>
 </div>
@@ -37,6 +39,8 @@ export default class List extends Vue {
   @list.Getter('wishlist')
   private wishlist!: string;
   private updatedList: any = null;
+  @list.State('editMode')
+  private editMode: any;
   private async checkForUser() {
     console.log('checking for user', this.user);
     if (this.user) {

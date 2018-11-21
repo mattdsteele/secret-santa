@@ -3,6 +3,7 @@ export interface ListState {
     year: number;
     user: string;
     list: string;
-  },
-  listRef?: firebase.firestore.DocumentReference
+  };
+  editMode: boolean;
+  listRef?: firebase.firestore.DocumentReference;
 }
