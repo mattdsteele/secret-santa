@@ -28,15 +28,13 @@ const palEmailer = props => {
   return (
     <>
       {props.users &&
-        props.users
-          .filter(user => user.email === 'orphum@gmail.com')
-          .map(user => (
-            <p key={user.uid}>
-              <button onClick={() => props.emailMatt(user.uid)}>
-                User: {user.email}
-              </button>
-            </p>
-          ))}
+        props.users.map(user => (
+          <p key={user.uid}>
+            <button onClick={() => props.emailMatt(user.uid)}>
+              User: {user.email}
+            </button>
+          </p>
+        ))}
       <button onClick={() => props.emailEveryone(props.users)}>
         Email everyone
       </button>
