@@ -6,7 +6,7 @@ import { makeSecretSantaEmail } from './emailTemplates';
 
 admin.initializeApp();
 const firestore = admin.firestore();
-firestore.settings({ timestampsInSnapshots: false });
+firestore.settings({});
 const apiKey = functions.config().sparkpost.apikey;
 
 export const sendEmailAsBurt = functions.https.onCall(async data => {

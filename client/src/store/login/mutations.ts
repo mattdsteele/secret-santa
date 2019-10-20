@@ -1,10 +1,10 @@
-import { LoginState } from "@/store/login/types";
-import { MutationTree } from "vuex";
-import { firebaseMutations } from "vuexfire";
-import { User } from "firebase";
+import { LoginState } from '@/store/login/types';
+import { MutationTree } from 'vuex';
+import { vuexfireMutations } from 'vuexfire';
+import { User } from 'firebase';
 
 export const mutations: MutationTree<LoginState> = {
-  ...firebaseMutations,
+  ...vuexfireMutations,
   login(state, user: User) {
     console.log('persisting user', user);
     state.user = user;
