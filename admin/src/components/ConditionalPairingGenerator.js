@@ -3,16 +3,16 @@ import React from 'react';
 import { connect } from 'react-redux';
 const mapStateToProps = state => {
   return {
-    lists: state.lists.all,
+    pairings: state.pairings.pairings,
     year: state.lists.year
   };
 };
 
-const conditionalPairingGenerator = ({ lists, year }) => {
-  if (!lists) {
+const conditionalPairingGenerator = ({ pairings, year }) => {
+  if (!pairings) {
     return <h1>Generating pairings for {year}...</h1>;
   }
-  const currentYearLists = lists.filter(l => l.year === year);
+  const currentYearLists = pairings.filter(l => l.year === year);
   if (currentYearLists.length === 0) {
     return <PairingGenerator />;
   }
