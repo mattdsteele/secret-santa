@@ -8,7 +8,8 @@ const mapStateToProps = state => {
     users: state.users.usersList,
     relationships: state.relationships.relationships,
     pairings: state.pairings.pairings,
-    year: state.lists.year
+    year: state.lists.year,
+    yearsBack: state.lists.yearsBackToDisallow
   };
 };
 const mapDispatchToProps = dispatch => {
@@ -23,7 +24,8 @@ const pairingGenerator = ({
   relationships,
   pairings,
   addPairings,
-  year
+  year,
+  yearsBack
 }) => {
   let pairingAttempt = 0;
   console.log('add pairings', addPairings);
@@ -31,7 +33,9 @@ const pairingGenerator = ({
     pairingAttempt++;
     console.log('pairing attempt', pairingAttempt);
     const proposedPairings = makePairings([...uids]);
-    if (allValidPairings(proposedPairings, pairings, relationships)) {
+    if (
+      allValidPairings(proposedPairings, pairings, relationships, yearsBack)
+    ) {
       return proposedPairings;
     } else {
       return makeValidPairings(uids);
@@ -65,7 +69,7 @@ const pairingGenerator = ({
             })}
           </ul>
           <button onClick={() => addPairings(pairings, year)}>
-            Add Pairings
+            Save Pairings for {year}
           </button>
         </div>
       </>

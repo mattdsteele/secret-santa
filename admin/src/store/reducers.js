@@ -21,7 +21,8 @@ const userReducer = (state = {}, action) => {
 };
 
 const initialListState = {
-  year: new Date().getFullYear()
+  year: new Date().getFullYear(),
+  yearsBackToDisallow: 3
 };
 const listReducer = (state = initialListState, action) => {
   switch (action.type) {

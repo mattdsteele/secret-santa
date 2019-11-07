@@ -4,7 +4,7 @@
   "private": true,
   "dependencies": {
     "commonmark": "^0.28.1",
-    "firebase": "^5.5.8",
+    "firebase": "^7",
     "react": "^16.7.0-alpha.0",
     "react-dom": "^16.7.0-alpha.0",
     "react-redux": "^5.1.1",

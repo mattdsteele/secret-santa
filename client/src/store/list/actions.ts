@@ -5,7 +5,7 @@ import { User } from 'firebase';
 import { ActionTree } from 'vuex';
 import { firebaseAction } from 'vuexfire';
 
-const currentYear = 2018;
+const currentYear = 2019;
 
 export const actions: ActionTree<ListState, RootState> = {
   init: firebaseAction(async (context: any, user: User) => {

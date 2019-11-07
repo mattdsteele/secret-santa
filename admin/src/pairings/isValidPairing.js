@@ -1,10 +1,19 @@
-export const isValidPairing = (currentPairing, pairings, relationships) => {
-  const hasPreviousPairing = pairings.some(pairing => {
-    return (
-      pairing.gifter === currentPairing.gifter &&
-      pairing.giftee === currentPairing.giftee
-    );
-  });
+export const isValidPairing = (
+  currentPairing,
+  pairings,
+  relationships,
+  yearsToDisallow = 99
+) => {
+  const year = new Date().getFullYear();
+  const yearThreshold = year - yearsToDisallow;
+  const hasPreviousPairing = pairings
+    .filter(pairing => pairing.year > yearThreshold)
+    .some(pairing => {
+      return (
+        pairing.gifter === currentPairing.gifter &&
+        pairing.giftee === currentPairing.giftee
+      );
+    });
   const isInRelationship = relationships.some(rel => {
     return (
       (rel.person1 === currentPairing.gifter &&
@@ -19,8 +28,9 @@ export const isValidPairing = (currentPairing, pairings, relationships) => {
 export const allValidPairings = (
   currentPairings,
   pastPairings,
-  relationships
+  relationships,
+  yearsToDisallow = 99
 ) =>
   currentPairings.every(pairing =>
-    isValidPairing(pairing, pastPairings, relationships)
+    isValidPairing(pairing, pastPairings, relationships, yearsToDisallow)
   );

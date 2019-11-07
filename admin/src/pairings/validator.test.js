@@ -52,3 +52,22 @@ test('all valid pairings (true)', () => {
   const relationships = [{ person1: 'foo', person2: 'baz' }];
   expect(allValidPairings(fixtures, pairings, relationships)).toBe(true);
 });
+test('all valid pairings, old history (true)', () => {
+  const fixtures = [
+    { gifter: 'foo', giftee: 'bar' },
+    { gifter: 'baz', giftee: 'bif' }
+  ];
+  const pairings = [{ gifter: 'baz', giftee: 'bif', year: 2016 }];
+  const relationships = [{ person1: 'foo', person2: 'baz' }];
+  expect(allValidPairings(fixtures, pairings, relationships, 3)).toBe(true);
+});
+
+test('all valid pairings, old history (false)', () => {
+  const fixtures = [
+    { gifter: 'foo', giftee: 'bar' },
+    { gifter: 'baz', giftee: 'bif' }
+  ];
+  const pairings = [{ gifter: 'baz', giftee: 'bif', year: 2017 }];
+  const relationships = [{ person1: 'foo', person2: 'baz' }];
+  expect(allValidPairings(fixtures, pairings, relationships, 3)).toBe(false);
+});
