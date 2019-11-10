@@ -25,10 +25,12 @@ jobs:
         uses: actions/upload-artifact@master
         with:
           name: .firebaserc
+          path: .firebaserc
       - name: Archive Firebase configs
         uses: actions/upload-artifact@master
         with:
           name: firebase.json
+          path: .firebaserc
   deploy:
     name: Deploy
     needs: build
@@ -45,6 +47,7 @@ jobs:
       - uses: actions/download-artifact@master
         with:
           name: client-dist
+          path: client/dist
       - name: Deploy to Firebase
         uses: w9jds/firebase-action@master
         with:
