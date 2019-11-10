@@ -39,6 +39,7 @@ const login = namespace('login');
 const photos = namespace('photos');
 import { db } from '../store/firestore';
 import { SecretSantaUser } from '../store/login/types';
+const year = new Date().getFullYear();
 
 @Component
 export default class HelloWorld extends Vue {
@@ -57,7 +58,7 @@ export default class HelloWorld extends Vue {
   private async created() {
     if (this.user) {
       const repo = new FirestoreRepo(db);
-      const [santa, secretPalList] = await repo.santaFor(this.user.uid, '2018');
+      const [santa, secretPalList] = await repo.santaFor(this.user.uid, `${year}`);
       this.giftee = santa;
       this.secretPalList = secretPalList;
     } else {

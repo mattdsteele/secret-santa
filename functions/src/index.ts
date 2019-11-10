@@ -30,7 +30,7 @@ export const sendTestEmail = functions.https.onCall(
 
 export const onUserCreate = functions.auth.user().onCreate(async user => {
   const { uid } = user;
-  const year = 2018;
+  const year = new Date().getFullYear();
   const repo = new FirestoreRepo(firestore);
   await repo.createDefaultList(uid, year);
   console.log(`Added default list for ${uid}`);

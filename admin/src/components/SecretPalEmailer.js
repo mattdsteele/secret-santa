@@ -2,6 +2,7 @@ import React from 'react';
 import { functions } from '../store/firebase';
 import { connect } from 'react-redux';
 const emailSecretPal = functions.httpsCallable('emailSecretPal');
+const year = new Date().getFullYear();
 const mapStateToProps = state => {
   return {
     users: state.users.usersList
@@ -11,13 +12,13 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     async emailMatt(userId) {
-      const res = await emailSecretPal({ userId, year: 2018 });
+      const res = await emailSecretPal({ userId, year });
       console.log(res);
     },
     async emailEveryone(users) {
       console.log('emailing everyone', users);
       const results = await Promise.all(
-        users.map(u => emailSecretPal({ userId: u.uid, year: 2018 }))
+        users.map(u => emailSecretPal({ userId: u.uid, year }))
       );
       console.log(results);
     }
