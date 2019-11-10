@@ -12,7 +12,7 @@ jobs:
       - name: Checkout Repo
         uses: actions/checkout@master
       - run: cd client && npm ci
-      - run: cd client && npm run build-prod
+      - run: cd client && npm run build
       - name: Archive Production Artifact
         uses: actions/upload-artifact@master
         with:
