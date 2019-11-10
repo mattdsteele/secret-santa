@@ -16,7 +16,6 @@ jobs:
         uses: actions/checkout@master
       - run: cd functions && npm ci
       - run: cd functions && npm run build
-        env:
       - name: Deploy to firebase
         uses: pizzafox/firebase-action@1.0.7
         env:
