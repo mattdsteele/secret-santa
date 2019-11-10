@@ -16,24 +16,31 @@ jobs:
         uses: actions/checkout@master
       - run: cd client && npm ci
       - run: cd client && npm run build
-      - name: Archive Production Artifact
-        uses: actions/upload-artifact@master
+      - name: Deploy to Firebase
+        uses: w9jds/firebase-action@master
         with:
-          name: client-dist
-          path: client/dist
-      - name: Archive Firebase configs
-        uses: actions/upload-artifact@master
-        with:
-          name: .firebaserc
-          path: .firebaserc
-      - name: Archive Firebase configs
-        uses: actions/upload-artifact@master
-        with:
-          name: firebase.json
-          path: .firebaserc
+          args: deploy --only hosting:prod
+        env:
+          FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
+
+      # - name: Archive Production Artifact
+      #   uses: actions/upload-artifact@master
+      #   with:
+      #     name: client-dist
+      #     path: client/dist
+      # - name: Archive Firebase configs
+      #   uses: actions/upload-artifact@master
+      #   with:
+      #     name: .firebaserc
+      #     path: .firebaserc
+      # - name: Archive Firebase configs
+      #   uses: actions/upload-artifact@master
+      #   with:
+      #     name: firebase.json
+      #     path: .firebaserc
   deploy:
     name: Deploy
-    needs: build
+    needs: build-dang
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Repo
