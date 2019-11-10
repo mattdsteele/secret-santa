@@ -16,30 +16,12 @@ jobs:
         uses: actions/checkout@master
       - run: cd client && npm ci
       - run: cd client && npm run build
-      # - name: Deploy to Firebase
-      #   uses: w9jds/firebase-action@master
-      #   with:
-      #     args: deploy --only hosting:prod
-      #   env:
-      #     FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
+        env:
+          VUE_APP_FIREBASE_API_KEY: ${{ secrets.VUE_APP_FIREBASE_API_KEY }}
+          VUE_APP_FIREBASE_MESSAGE_SENDER_ID: ${{ secrets.VUE_APP_FIREBASE_MESSAGE_SENDER_ID }}
       - name: Deploy to firebase
         uses: pizzafox/firebase-action@1.0.7
         env:
           FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
         with:
           args: deploy --only hosting
-      # - name: Archive Production Artifact
-      #   uses: actions/upload-artifact@master
-      #   with:
-      #     name: client-dist
-      #     path: client/dist
-      # - name: Archive Firebase configs
-      #   uses: actions/upload-artifact@master
-      #   with:
-      #     name: .firebaserc
-      #     path: .firebaserc
-      # - name: Archive Firebase configs
-      #   uses: actions/upload-artifact@master
-      #   with:
-      #     name: firebase.json
-      #     path: .firebaserc
