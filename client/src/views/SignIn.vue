@@ -40,7 +40,7 @@ export default class HelloWorld extends Vue {
         if (newUser) {
           this.$router.push("register");
         } else {
-          this.$router.push(this.editMode ? "/list" : "/");
+          this.$router.push(this.editMode !== false ? "/list" : "/");
         }
       }
     });
