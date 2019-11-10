@@ -11,9 +11,8 @@ jobs:
     steps:
       - name: Checkout Repo
         uses: actions/checkout@master
-      - run: cd client
-      - run: npm ci
-      - run: npm run build-prod
+      - run: cd client && npm ci
+      - run: cd client && npm run build-prod
       - name: Archive Production Artifact
         uses: actions/upload-artifact@master
         with:
