@@ -13,10 +13,12 @@ import './index.css';
 import * as serviceWorker from './serviceWorker';
 import { store } from './store';
 import { PalEmailer } from './components/SecretPalEmailer';
+import { DefaultListMaker } from './components/DefaultListMaker';
 
 const Main = () => {
   return (
     <>
+      <DefaultListMaker />
       <ConditionalPairingGenerator />
       <Relationships />
       <Pairings />

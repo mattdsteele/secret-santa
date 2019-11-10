@@ -10,8 +10,10 @@
       <vue-markdown :source="wishlist" v-if="wishlist"></vue-markdown>
     </div>
     <div v-if="!user" class="signin">
-      <h2><router-link to="sign-in">Sign In</router-link></h2>
-      <img :src="photoUrl" :v-if="photoUrl">
+      <h2>
+        <router-link to="sign-in">Sign In</router-link>
+      </h2>
+      <img :src="photoUrl" :v-if="photoUrl" />
     </div>
   </div>
 </template>
@@ -30,35 +32,38 @@ img {
 
 
 <script lang="ts">
-import { Component, Vue } from 'vue-property-decorator';
-import { namespace } from 'vuex-class';
-import { User } from 'firebase';
-import { FirestoreRepo } from '../firestore-repo';
-const list = namespace('list');
-const login = namespace('login');
-const photos = namespace('photos');
-import { db } from '../store/firestore';
-import { SecretSantaUser } from '../store/login/types';
+import { Component, Vue } from "vue-property-decorator";
+import { namespace } from "vuex-class";
+import { User } from "firebase";
+import { FirestoreRepo } from "../firestore-repo";
+const list = namespace("list");
+const login = namespace("login");
+const photos = namespace("photos");
+import { db } from "../store/firestore";
+import { SecretSantaUser } from "../store/login/types";
 const year = new Date().getFullYear();
 
 @Component
 export default class HelloWorld extends Vue {
-  @list.Getter('wishlist')
+  @list.Getter("wishlist")
   private wishlist!: string;
-  @login.State('user')
+  @login.State("user")
   private user!: User;
-  @photos.State('photoUrl')
+  @photos.State("photoUrl")
   private photoUrl!: string;
-  @photos.Action('init')
+  @photos.Action("init")
   private initPhoto!: any;
-  @list.State('editMode')
+  @list.State("editMode")
   private shouldHideSecretPal: any;
   private giftee: SecretSantaUser | null = null;
-  private secretPalList: string = '';
+  private secretPalList: string = "";
   private async created() {
     if (this.user) {
       const repo = new FirestoreRepo(db);
-      const [santa, secretPalList] = await repo.santaFor(this.user.uid, `${year}`);
+      const [santa, secretPalList] = await repo.santaFor(
+        this.user.uid,
+        `${year}`
+      );
       this.giftee = santa;
       this.secretPalList = secretPalList;
     } else {

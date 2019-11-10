@@ -28,6 +28,17 @@ export const sendTestEmail = functions.https.onCall(
   }
 );
 
+export const makeDefaultLists = functions.https.onCall(async ({ year }) => {
+  console.log('Making default lists!', year);
+  const repo = new FirestoreRepo(firestore);
+  const responses = await Promise.all(
+    (await repo.allUsers())
+      .map(userids => userids.uid)
+      .map(uid => repo.createDefaultList(uid, year))
+  );
+  console.log(responses);
+  return 'Made dfeault lists, yay';
+});
 export const onUserCreate = functions.auth.user().onCreate(async user => {
   const { uid } = user;
   const year = new Date().getFullYear();

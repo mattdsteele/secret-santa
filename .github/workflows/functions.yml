@@ -1,0 +1,25 @@
+name: Functions
+on:
+  push:
+    branches:
+      - master
+    paths:
+      - 'functions/*'
+      - '.github/workflows/*functions*'
+
+jobs:
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@master
+      - run: cd functions && npm ci
+      - run: cd functions && npm run build
+        env:
+      - name: Deploy to firebase
+        uses: pizzafox/firebase-action@1.0.7
+        env:
+          FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
+        with:
+          args: deploy --only functions
