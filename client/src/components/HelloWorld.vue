@@ -58,6 +58,7 @@ export default class HelloWorld extends Vue {
   private giftee: SecretSantaUser | null = null;
   private secretPalList: string = "";
   private async created() {
+    console.log(`Hiding secret pal: ${this.shouldHideSecretPal}`);
     if (this.user) {
       const repo = new FirestoreRepo(db);
       const [santa, secretPalList] = await repo.santaFor(
