@@ -22,7 +22,6 @@ jobs:
           args: deploy --only hosting:prod
         env:
           FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
-
       # - name: Archive Production Artifact
       #   uses: actions/upload-artifact@master
       #   with:
@@ -38,26 +37,3 @@ jobs:
       #   with:
       #     name: firebase.json
       #     path: .firebaserc
-  deploy:
-    name: Deploy
-    needs: build-dang
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout Repo
-        uses: actions/checkout@master
-      - uses: actions/download-artifact@master
-        with:
-          name: .firebaserc
-      - uses: actions/download-artifact@master
-        with:
-          name: firebase.json
-      - uses: actions/download-artifact@master
-        with:
-          name: client-dist
-          path: client/dist
-      - name: Deploy to Firebase
-        uses: w9jds/firebase-action@master
-        with:
-          args: deploy --only hosting:prod
-        env:
-          FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
