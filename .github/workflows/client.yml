@@ -4,7 +4,7 @@ on:
     branches:
       - master
     paths:
-      - 'client/*'
+      - 'client/**'
       - '.github/workflows/*client*'
 
 jobs:
