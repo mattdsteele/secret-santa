@@ -4,8 +4,8 @@ import Vue from 'vue';
 import vueAnalyticsInstall from 'vue-analytics';
 import VueMarkdown from 'vue-markdown';
 import VueMaterial from 'vue-material';
-import 'vue-material/dist/theme/black-green-light.css'; // This line here
 import 'vue-material/dist/vue-material.min.css';
+import 'vue-material/dist/theme/default.css'; // This line here
 import App from './App.vue';
 import router from './router';
 import store from './store';
