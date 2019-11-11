@@ -5,6 +5,31 @@ const parser = new Commonmark.Parser();
 const writer = new Commonmark.HtmlRenderer();
 const sendEmailAsBurt = functions.httpsCallable('sendEmailAsBurt');
 
+const TEST_MODE = false;
+
+const burtIntroEmail = `Hello there boys and girls. It's me Burt (aka Santa's Little Helper (no, not the greyhound)). Santa and all his helpers are starting to get real busy here at the North Pole. Before you know it, Christmas will be here. So stop doing the Monster Mash already.
+
+I assume that everyone is participating in the Steele Family Gift exchange. If this is a bad assumption, let me know.
+
+As in year's past, there are a few rules:
+
+* $50 limit (includes tax, shipping) on gifts. So keep each item on your wish list to under $50.
+* You can (and are encouraged to) have multiple items that when combined cost $50 or less.
+* Again, your Secret Santa does not have to spend $50 but that's the limit he/she can spend.
+
+Your "Secret Pal" will not be your spouse/significant other. You're still on "the hook" for them. It also won't be someone you've had in recent years (assuming the supercomputer got it right).
+
+**Click here to sign up for the Steele Family Gift Exchange: [https://secretsanta.steele.blue](https://secretsanta.steele.blue)**
+
+Fill out your form early! You can save/update it until **November 26th**, at which point I'll push a button on the supercomputer and it will e-mail your list to your Secret Santa. If you fail to submit before the deadline, all gifts intended for you may go to Santa's Little Helper.
+
+To help you organize your time and get your wish list in on or before the November 26th deadline, I will sent you reminders. They will be friendly reminders at first. But the closer we get to the deadline, the angrier the reminders will become. Believe me, you do not want to suffer the verbal wrath of Santa's Little Helper. 🧝
+
+On November 27th I will e-mail you the list submitted by your Secret Pal, and you should be off to the races. And if you have any problems entering your list, don't bug me. Bug Matt.
+
+Burt the elf
+`;
+
 function BurtMailer() {
   const matt = ['Matt S <orphum@gmail.com>'];
   const rest = [
@@ -19,9 +44,8 @@ function BurtMailer() {
     'Rick Steele <rickandjudysteele@gmail.com>'
   ];
   const fullEmailList = [...matt, ...rest];
-  const testMode = false;
-  const emailList = testMode ? matt : fullEmailList;
-  const [content, setContent] = useState('');
+  const emailList = TEST_MODE ? matt : fullEmailList;
+  const [content, setContent] = useState(burtIntroEmail);
   const [renderedResult, setRenderedResult] = useState('');
   const [subject, setSubject] = useState('A message from Burt the Elf');
   const sendEmail = async e => {
@@ -61,7 +85,11 @@ function BurtMailer() {
       </ul>
       <p>Content</p>
       <form onSubmit={sendEmail}>
-        <textarea name="data" onInput={e => setContent(e.target.value)} />
+        <textarea
+          name="data"
+          onInput={e => setContent(e.target.value)}
+          value={content}
+        />
         <div>
           <button type="button" onClick={renderResult}>
             Preview
@@ -72,7 +100,9 @@ function BurtMailer() {
                 style={{ border: '1px solid black' }}
                 dangerouslySetInnerHTML={{ __html: renderedResult }}
               />
-              <button type="submit">Email with data</button>
+              <button type="submit">
+                Email with data ({TEST_MODE ? 'TEST MODE' : 'EVERYONE'})
+              </button>
             </>
           )}
         </div>

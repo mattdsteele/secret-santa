@@ -9,7 +9,7 @@ export const email = async (
   const client = new SparkPost(apiKey);
   const response = await client.transmissions.send({
     content: {
-      from: 'burt@secretsanta-mail.steele.blue',
+      from: 'Burt the Elf 🧝‍♂️ <burt@secretsanta-mail.steele.blue>',
       reply_to: 'matt@steele.blue',
       subject,
       html: `
