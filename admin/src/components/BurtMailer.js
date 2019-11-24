@@ -30,6 +30,15 @@ On November 27th I will e-mail you the list submitted by your Secret Pal, and yo
 Burt the elf
 `;
 
+const burtReminderEmail = `Friendly reminder that you have **3 days left** to put in your lists for your Secret Santa.
+
+I'll be firing up the supercomputer to assign Secret Pals at **11:59pm on November 26**, so get on it!
+
+[https://secretsanta.steele.blue](https://secretsanta.steele.blue)
+
+Burt the Elf
+`;
+
 function BurtMailer() {
   const matt = ['Matt S <orphum@gmail.com>'];
   const rest = [
@@ -45,7 +54,7 @@ function BurtMailer() {
   ];
   const fullEmailList = [...matt, ...rest];
   const emailList = TEST_MODE ? matt : fullEmailList;
-  const [content, setContent] = useState(burtIntroEmail);
+  const [content, setContent] = useState('');
   const [renderedResult, setRenderedResult] = useState('');
   const [subject, setSubject] = useState('A message from Burt the Elf');
   const sendEmail = async e => {
@@ -66,6 +75,9 @@ function BurtMailer() {
     const htmlContent = writer.render(parser.parse(content));
     setRenderedResult(htmlContent);
   };
+  const setText = content => {
+    setContent(content);
+  };
 
   return (
     <div>
@@ -84,6 +96,8 @@ function BurtMailer() {
         ))}
       </ul>
       <p>Content</p>
+      <button onClick={() => setText(burtIntroEmail)}>Intro</button>
+      <button onClick={() => setText(burtReminderEmail)}>Reminder</button>
       <form onSubmit={sendEmail}>
         <textarea
           name="data"

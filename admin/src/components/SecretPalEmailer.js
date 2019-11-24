@@ -28,17 +28,20 @@ const mapDispatchToProps = dispatch => {
 const palEmailer = props => {
   return (
     <>
+      <h1>Secret Pal Mailer</h1>
       {props.users &&
         props.users.map(user => (
-          <p key={user.uid}>
+          <span key={user.uid}>
             <button onClick={() => props.emailMatt(user.uid)}>
-              User: {user.email}
+              Email Secret Pal For: {user.email}
             </button>
-          </p>
+          </span>
         ))}
-      <button onClick={() => props.emailEveryone(props.users)}>
-        Email everyone
-      </button>
+      <p>
+        <button onClick={() => props.emailEveryone(props.users)}>
+          Email Secret Pal For Everyone
+        </button>
+      </p>
     </>
   );
 };
