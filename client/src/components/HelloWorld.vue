@@ -2,8 +2,14 @@
   <div>
     <div v-if="giftee && !shouldHideSecretPal">
       <h1>Your Secret Pal is {{giftee.displayName}}</h1>
-      <p>{{giftee.displayName}}'s Wishlist:</p>
-      <vue-markdown :source="secretPalList"></vue-markdown>
+      <md-card>
+        <md-card-header>
+          <div class="md-title">{{giftee.displayName}}'s Wishlist</div>
+        </md-card-header>
+        <md-card-content>
+          <vue-markdown :source="secretPalList"></vue-markdown>
+        </md-card-content>
+      </md-card>
     </div>
     <div v-if="user && shouldHideSecretPal">
       <h2>Your Wishlist</h2>

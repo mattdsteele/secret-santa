@@ -9,9 +9,10 @@ import Component from "vue-class-component";
 import { Action, namespace } from "vuex-class";
 
 const login = namespace("login");
+const list = namespace("list");
 @Component
 export default class HelloWorld extends Vue {
-  @login.State("editMode")
+  @list.State("editMode")
   private editMode: any;
   @login.Action("doLogin")
   private loginAction: any;
@@ -40,6 +41,7 @@ export default class HelloWorld extends Vue {
         if (newUser) {
           this.$router.push("register");
         } else {
+          console.log("transferring to", this.editMode);
           this.$router.push(this.editMode !== false ? "/list" : "/");
         }
       }
