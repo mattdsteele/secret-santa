@@ -15,7 +15,7 @@ export const makeSecretSantaEmail = (
     ${htmlList}
     <hr>
     <p>You can also view ${pal.displayName}'s list at <a href="https://secretsanta.steele.blue">secretsanta.steele.blue</a></p>
-    <p>Enjoy! 🧝‍♀️🧝‍♂️</p>
-    <em>Burt the Elf</em>
+    <p>Enjoy!</p>
+    <em>🧝‍♀️ Burt the Elf 🧝‍♂️</em>
     `;
 };
