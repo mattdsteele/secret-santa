@@ -19,26 +19,25 @@ const pairingHistory = props => {
   };
   const name = id => userFor(id).displayName;
   return (
-    <>
+    <div className="hidden">
       <h1>Pairings History</h1>
-      {props.pairings &&
-        props.users && (
-          <table>
-            <thead>
-              <th>Year</th>
-              <th>Gifter</th>
-              <th>Giftee</th>
-            </thead>
-            {props.pairings.map(({ year, gifter, giftee }) => (
-              <tr>
-                <td>{year}</td>
-                <td>{name(gifter)}</td>
-                <td>{name(giftee)}</td>
-              </tr>
-            ))}
-          </table>
-        )}
-    </>
+      {props.pairings && props.users && (
+        <table>
+          <thead>
+            <th>Year</th>
+            <th>Gifter</th>
+            <th>Giftee</th>
+          </thead>
+          {props.pairings.map(({ year, gifter, giftee }) => (
+            <tr>
+              <td>{year}</td>
+              <td>{name(gifter)}</td>
+              <td>{name(giftee)}</td>
+            </tr>
+          ))}
+        </table>
+      )}
+    </div>
   );
 };
 export const PairingHistory = connect(

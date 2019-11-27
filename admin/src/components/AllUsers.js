@@ -19,7 +19,7 @@ class allUsers extends Component {
   }
   render() {
     return (
-      <div>
+      <div className="hidden">
         <h2>Users</h2>
         {this.props.users &&
           this.props.users.map(user => (
@@ -32,9 +32,6 @@ class allUsers extends Component {
   }
 }
 
-const AllUsers = connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(allUsers);
+const AllUsers = connect(mapStateToProps, mapDispatchToProps)(allUsers);
 
 export { AllUsers };

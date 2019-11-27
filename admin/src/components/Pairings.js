@@ -38,7 +38,7 @@ class pairings extends Component {
   }
   render() {
     return (
-      <>
+      <div class="hidden">
         <h1>Year: {this.state.year}</h1>
         {this.props.users && (
           <>
@@ -63,12 +63,9 @@ class pairings extends Component {
           ))}
         </ul>
         <button onClick={() => this.saveYear()}>Save {this.state.year}</button>
-      </>
+      </div>
     );
   }
 }
 
-export const Pairings = connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(pairings);
+export const Pairings = connect(mapStateToProps, mapDispatchToProps)(pairings);

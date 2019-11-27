@@ -58,7 +58,7 @@ class relationships extends Component {
   }
   render() {
     return (
-      <>
+      <div className="hidden">
         {this.props.users && (
           <>
             <User
@@ -83,9 +83,10 @@ class relationships extends Component {
           ))}
         </ul>
         <button onClick={() => this.save()}>Save</button>
-        {this.props.relationships &&
-          this.props.users && <ul>{this.makeRelationshipSetting()}</ul>}
-      </>
+        {this.props.relationships && this.props.users && (
+          <ul>{this.makeRelationshipSetting()}</ul>
+        )}
+      </div>
     );
   }
 }
