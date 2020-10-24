@@ -1,5 +1,5 @@
 const year = new Date().getFullYear();
-export const defaultWishlist = `# Steele Christmas Gift Exchange - ${year}
+export const defaultWishlist = `# Steele Secret Santa Gift Exchange - ${year}
 
 ## SECRET SANTA WISH LIST
 
@@ -9,8 +9,6 @@ _(Include Websites if Appropriate, For Clothing List Sizes and Colors)_
 
 1.
 2.
-3.
-4.
 
 ### Other Ideas
 
@@ -34,6 +32,6 @@ _(Include Websites if Appropriate, For Clothing List Sizes and Colors)_
 1.
 2.
 
-**Remember, you are limited to $50 or less for any one gift**
+**Remember, you are limited to $50 or less**
 
-`
+`;

@@ -9,7 +9,7 @@ const firestore = admin.firestore();
 firestore.settings({});
 const apiKey = functions.config().sparkpost.apikey;
 
-export const sendEmailAsBurt = functions.https.onCall(async data => {
+export const sendEmailAsBurt = functions.https.onCall(async (data) => {
   const { emailList, content, subject = 'A message from Burt the Elf' } = data;
   return await email(emailList, content, subject, apiKey);
 });
@@ -32,14 +32,14 @@ export const makeDefaultLists = functions.https.onCall(async ({ year }) => {
   console.log('Making default lists!', year);
   const repo = new FirestoreRepo(firestore);
   const responses = await Promise.all(
-    (await repo.allUsers())
-      .map(userids => userids.uid)
-      .map(uid => repo.createDefaultList(uid, year))
+    (await repo.activeUsers())
+      .map((userids) => userids.uid)
+      .map((uid) => repo.createDefaultList(uid, year))
   );
   console.log(responses);
   return 'Made dfeault lists, yay';
 });
-export const onUserCreate = functions.auth.user().onCreate(async user => {
+export const onUserCreate = functions.auth.user().onCreate(async (user) => {
   const { uid } = user;
   const year = new Date().getFullYear();
   const repo = new FirestoreRepo(firestore);

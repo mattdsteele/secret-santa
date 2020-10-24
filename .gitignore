@@ -2,6 +2,7 @@
 node_modules
 client/dist
 .firebase
+scratch.txt
 
 # local env files
 .env.local

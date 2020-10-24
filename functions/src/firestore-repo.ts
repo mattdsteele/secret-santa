@@ -6,6 +6,7 @@ export interface User {
   uid: string;
   email: string;
   photoURL: string;
+  active: boolean;
 }
 export class FirestoreRepo {
   constructor(private store: Firestore) {}
@@ -14,7 +15,7 @@ export class FirestoreRepo {
     await list.add({
       year,
       user: uid,
-      list: defaultWishlist
+      list: defaultWishlist,
     });
   }
   async santaFor(gifterId: string, year: string) {
@@ -69,6 +70,10 @@ export class FirestoreRepo {
   }
   async allUsers() {
     const results = await this.store.collection('users').get();
-    return results.docs.map(result => result.data() as User);
+    return results.docs.map((result) => result.data() as User);
+  }
+  async activeUsers() {
+    const users = await this.allUsers();
+    return users.filter((u) => u.active !== false);
   }
 }
