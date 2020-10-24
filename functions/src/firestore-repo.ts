@@ -74,6 +74,9 @@ export class FirestoreRepo {
   }
   async activeUsers() {
     const users = await this.allUsers();
-    return users.filter((u) => u.active !== false);
+    console.log(`found ${users.length} total users`);
+    const activeUsers = users.filter((u) => u.active !== false);
+    console.log(`found ${activeUsers.length} active users`);
+    return activeUsers;
   }
 }

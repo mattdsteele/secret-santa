@@ -36,8 +36,7 @@ export const makeDefaultLists = functions.https.onCall(async ({ year }) => {
       .map((userids) => userids.uid)
       .map((uid) => repo.createDefaultList(uid, year))
   );
-  console.log(responses);
-  return 'Made dfeault lists, yay';
+  console.log(`generated ${responses.length} lists`);
 });
 export const onUserCreate = functions.auth.user().onCreate(async (user) => {
   const { uid } = user;
