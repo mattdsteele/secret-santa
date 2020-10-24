@@ -13,7 +13,7 @@ const mapDispatchToProps = (dispatch) => {
   return {};
 };
 
-const pairingHistory = (props) => {
+const PairingHistoryFn = (props) => {
   const [visible, setVisible] = useState(false);
   const userFor = (id) => {
     return props.users.filter((u) => u.uid === id)[0];
@@ -52,4 +52,4 @@ const pairingHistory = (props) => {
 export const PairingHistory = connect(
   mapStateToProps,
   mapDispatchToProps
-)(pairingHistory);
+)(PairingHistoryFn);
