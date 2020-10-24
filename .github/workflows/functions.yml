@@ -17,7 +17,7 @@ jobs:
       - run: cd functions && npm ci
       - run: cd functions && npm run build
       - name: Deploy to firebase
-        uses: w9jds/firebase-action@1.5.0
+        uses: w9jds/firebase-action@master
         env:
           FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
         with:
