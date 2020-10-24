@@ -46,18 +46,18 @@ function BurtMailer() {
     'Carla Steele <carlaps2006@gmail.com>',
     'Patrick Steele <patrick.w.steele@gmail.com>',
     'Eric Steele <e.steele@gmail.com>',
-    'Jessica Steele <jess.m.hensley@gmail.com>',
+    // 'Jessica Steele <jess.m.hensley@gmail.com>',
     'Jessica Codr <jcake2@gmail.com>',
     'Angela Steele <ange.m.steele@gmail.com>',
     'Judy Steele <rsteele1@kc.rr.com>',
-    'Rick Steele <rickandjudysteele@gmail.com>'
+    'Rick Steele <rickandjudysteele@gmail.com>',
   ];
   const fullEmailList = [...matt, ...rest];
   const emailList = TEST_MODE ? matt : fullEmailList;
   const [content, setContent] = useState('');
   const [renderedResult, setRenderedResult] = useState('');
   const [subject, setSubject] = useState('A message from Burt the Elf');
-  const sendEmail = async e => {
+  const sendEmail = async (e) => {
     e.preventDefault();
     console.log('okay send email', parser);
     const htmlContent = writer.render(parser.parse(content));
@@ -65,7 +65,7 @@ function BurtMailer() {
     const result = await sendEmailAsBurt({
       emailList,
       subject,
-      content: htmlContent
+      content: htmlContent,
     });
     // Read result of the Cloud Function.
     var sanitizedMessage = result.data;
@@ -75,7 +75,7 @@ function BurtMailer() {
     const htmlContent = writer.render(parser.parse(content));
     setRenderedResult(htmlContent);
   };
-  const setText = content => {
+  const setText = (content) => {
     setContent(content);
   };
 
@@ -86,12 +86,12 @@ function BurtMailer() {
         <input
           name=""
           value={subject}
-          onInput={e => setSubject(e.target.value)}
+          onChange={(e) => setSubject(e.target.value)}
         />
       </p>
       <p>Emailers:</p>
       <ul>
-        {emailList.map(e => (
+        {emailList.map((e) => (
           <li key={e}>{e}</li>
         ))}
       </ul>
@@ -101,7 +101,7 @@ function BurtMailer() {
       <form onSubmit={sendEmail}>
         <textarea
           name="data"
-          onInput={e => setContent(e.target.value)}
+          onChange={(e) => setContent(e.target.value)}
           value={content}
         />
         <div>

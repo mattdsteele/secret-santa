@@ -3,13 +3,13 @@ import { connect } from 'react-redux';
 import { getAllRelationships, saveRelationships } from '../store/actions';
 import { User } from './User';
 
-const mapStateToProps = store => {
+const mapStateToProps = (store) => {
   return {
-    users: store.users.usersList,
-    relationships: store.relationships.relationships
+    users: store.users.activeUsers,
+    relationships: store.relationships.relationships,
   };
 };
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch) => {
   return {
     saveList(relationships) {
       console.log('saving list', relationships);
@@ -17,7 +17,7 @@ const mapDispatchToProps = dispatch => {
     },
     getRelationships() {
       dispatch(getAllRelationships());
-    }
+    },
   };
 };
 class relationships extends Component {
@@ -35,12 +35,12 @@ class relationships extends Component {
     this.setState({ person2Id: v });
   }
   userFor(id) {
-    return this.props.users.filter(u => u.uid === id)[0];
+    return this.props.users.filter((u) => u.uid === id)[0];
   }
   addEntry() {
     const newRels = [
       ...this.state.relationships,
-      [this.userFor(this.state.person1Id), this.userFor(this.state.person2Id)]
+      [this.userFor(this.state.person1Id), this.userFor(this.state.person2Id)],
     ];
     console.log(newRels);
     this.setState({ relationships: newRels });
@@ -64,14 +64,14 @@ class relationships extends Component {
             <User
               val={this.state.person1Id}
               users={this.props.users}
-              onSelectChanged={v => this.onPerson1Change(v)}
+              onSelectChanged={(v) => this.onPerson1Change(v)}
             />
             <User
               val={this.state.person2Id}
               users={this.props.users}
-              onSelectChanged={v => this.onPerson2Change(v)}
+              onSelectChanged={(v) => this.onPerson2Change(v)}
             />
-            <button onClick={e => this.addEntry()}>Add Relationship</button>
+            <button onClick={(e) => this.addEntry()}>Add Relationship</button>
           </>
         )}
         <h1>Relationships</h1>

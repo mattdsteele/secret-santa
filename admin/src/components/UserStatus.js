@@ -4,14 +4,14 @@ import { getAllLists } from '../store/actions';
 
 const mapStateToProps = ({ users, lists }) => {
   return {
-    users: users.usersList,
+    users: users.activeUsers,
     lists: lists.all,
-    year: lists.year
+    year: lists.year,
   };
 };
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch) => {
   return {
-    onConnect: () => dispatch(getAllLists())
+    onConnect: () => dispatch(getAllLists()),
   };
 };
 
@@ -19,11 +19,11 @@ class userStatus extends Component {
   componentDidMount() {
     this.props.onConnect();
   }
-  newYear = e => {
+  newYear = (e) => {
     this.setState({ year: parseInt(e.target.value) });
   };
   nameOfUser(uid) {
-    return this.props.users.filter(user => user.uid === uid)[0].displayName;
+    return this.props.users.filter((user) => user.uid === uid)[0].displayName;
   }
   render() {
     return (
@@ -33,8 +33,8 @@ class userStatus extends Component {
         <ul>
           {this.props.lists &&
             this.props.lists
-              .filter(list => list.year === this.props.year)
-              .map(list => {
+              .filter((list) => list.year === this.props.year)
+              .map((list) => {
                 return <li key={list.user}>{this.nameOfUser(list.user)}</li>;
               })}
         </ul>
@@ -43,9 +43,6 @@ class userStatus extends Component {
   }
 }
 
-const UserStatus = connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(userStatus);
+const UserStatus = connect(mapStateToProps, mapDispatchToProps)(userStatus);
 
 export { UserStatus };

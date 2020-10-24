@@ -4,16 +4,16 @@ import { functions } from '../store/firebase';
 import { getUsers } from '../store/actions';
 const defaultLists = functions.httpsCallable('makeDefaultLists');
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {
-    users: state.users.usersList,
+    users: state.users.activeUsers,
     year: state.lists.year,
-    lists: state.lists.all
+    lists: state.lists.all,
   };
 };
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch) => {
   return {
-    onConnect: () => dispatch(getUsers())
+    onConnect: () => dispatch(getUsers()),
   };
 };
 
@@ -31,7 +31,7 @@ class defaultListMaker extends Component {
       return <h2>Default lists for {this.props.year}</h2>;
     }
     const currentYearLists = this.props.lists.filter(
-      l => l.year === this.props.year
+      (l) => l.year === this.props.year
     );
     return (
       <div>

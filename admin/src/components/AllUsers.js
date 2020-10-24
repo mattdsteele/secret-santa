@@ -2,14 +2,14 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { getUsers } from '../store/actions';
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {
-    users: state.users.usersList
+    users: state.users.activeUsers,
   };
 };
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch) => {
   return {
-    onConnect: () => dispatch(getUsers())
+    onConnect: () => dispatch(getUsers()),
   };
 };
 
@@ -22,7 +22,7 @@ class allUsers extends Component {
       <div className="hidden">
         <h2>Users</h2>
         {this.props.users &&
-          this.props.users.map(user => (
+          this.props.users.map((user) => (
             <p key={user.uid}>
               {user.displayName} - {user.email}
             </p>

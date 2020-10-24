@@ -3,20 +3,20 @@ import { connect } from 'react-redux';
 import { makePairings } from '../pairings/generate-pairings';
 import { allValidPairings } from '../pairings/isValidPairing';
 import { saveNewYear } from '../store/actions';
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {
-    users: state.users.usersList,
+    users: state.users.activeUsers,
     relationships: state.relationships.relationships,
     pairings: state.pairings.pairings,
     year: state.lists.year,
-    yearsBack: state.lists.yearsBackToDisallow
+    yearsBack: state.lists.yearsBackToDisallow,
   };
 };
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch) => {
   return {
     addPairings(pairs, year) {
       dispatch(saveNewYear(pairs, year));
-    }
+    },
   };
 };
 const pairingGenerator = ({
@@ -25,11 +25,11 @@ const pairingGenerator = ({
   pairings,
   addPairings,
   year,
-  yearsBack
+  yearsBack,
 }) => {
   let pairingAttempt = 0;
   console.log('add pairings', addPairings);
-  const makeValidPairings = uids => {
+  const makeValidPairings = (uids) => {
     pairingAttempt++;
     console.log('pairing attempt', pairingAttempt);
     const proposedPairings = makePairings([...uids]);
@@ -49,18 +49,18 @@ const pairingGenerator = ({
     relationships.length > 0 &&
     pairings.length > 0
   ) {
-    const uids = users.map(u => u.uid);
+    const uids = users.map((u) => u.uid);
     const pairings = makeValidPairings(uids);
 
-    const nameOfUser = uid => {
-      return users.filter(user => user.uid === uid)[0].displayName;
+    const nameOfUser = (uid) => {
+      return users.filter((user) => user.uid === uid)[0].displayName;
     };
     return (
       <>
         <div>
           <h1>New Pairings</h1>
           <ul>
-            {pairings.map(p => {
+            {pairings.map((p) => {
               return (
                 <li>
                   {nameOfUser(p.gifter)} gifts to {nameOfUser(p.giftee)}
