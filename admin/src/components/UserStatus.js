@@ -23,11 +23,10 @@ class userStatus extends Component {
     this.setState({ year: parseInt(e.target.value) });
   };
   nameOfUser(uid) {
-    const foundUser = this.props.users.find((user) => user.uid === uid);
-    if (foundUser) {
-      return foundUser.displayName;
-    }
-    return 'NOT_FOUND';
+    return (
+      this.props.users.find((user) => user.uid === uid)?.displayName ||
+      'NOT_FOUND'
+    );
   }
   render() {
     return (
