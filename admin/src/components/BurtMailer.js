@@ -5,7 +5,7 @@ const parser = new Commonmark.Parser();
 const writer = new Commonmark.HtmlRenderer();
 const sendEmailAsBurt = functions.httpsCallable('sendEmailAsBurt');
 
-const TEST_MODE = false;
+const TEST_MODE = true;
 
 const burtIntroEmail = `Hello there boys and girls. It's me Burt (aka Santa's Little Helper (no, not the greyhound)). Santa and all his helpers are starting to get real busy here at the North Pole. Before you know it, Christmas will be here. So stop doing the Monster Mash already.
 
@@ -40,7 +40,7 @@ Burt the Elf
 `;
 
 function BurtMailer() {
-  const matt = ['Matt S <orphum@gmail.com>'];
+  const testList = ['Matt S <orphum@gmail.com>'];
   const rest = [
     'Merle Steele <merleds2006@gmail.com>',
     'Carla Steele <carlaps2006@gmail.com>',
@@ -52,8 +52,8 @@ function BurtMailer() {
     'Judy Steele <rsteele1@kc.rr.com>',
     'Rick Steele <rickandjudysteele@gmail.com>',
   ];
-  const fullEmailList = [...matt, ...rest];
-  const emailList = TEST_MODE ? matt : fullEmailList;
+  const fullEmailList = [...testList, ...rest];
+  const emailList = TEST_MODE ? testList : fullEmailList;
   const [content, setContent] = useState('');
   const [renderedResult, setRenderedResult] = useState('');
   const [subject, setSubject] = useState('A message from Burt the Elf');
@@ -115,7 +115,7 @@ function BurtMailer() {
                 dangerouslySetInnerHTML={{ __html: renderedResult }}
               />
               <button type="submit">
-                Email with data ({TEST_MODE ? 'TEST MODE' : 'EVERYONE'})
+                Email with data ({emailList.join(',')})
               </button>
             </>
           )}
