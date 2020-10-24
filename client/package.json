@@ -11,8 +11,8 @@
     "test:unit": "vue-cli-service test:unit"
   },
   "dependencies": {
-    "firebase": "^7.3.0",
-    "firebaseui": "^4",
+    "firebase": "^7.24.0",
+    "firebaseui": "^4.7.0",
     "register-service-worker": "^1.6.2",
     "vue": "^2.6.10",
     "vue-analytics": "^5.17.2",
@@ -34,7 +34,7 @@
     "@vue/cli-plugin-unit-jest": "^4.0.5",
     "@vue/cli-service": "^4.0.5",
     "@vue/test-utils": "^1.0.0-beta.29",
-    "firebase-tools": "^7.7.0",
+    "firebase-tools": "^7.16.2",
     "source-map-explorer": "^2",
     "ts-jest": "^23.10.5",
     "tslint-config-prettier": "^1.18.0",
