@@ -62,7 +62,7 @@ const pairingGenerator = ({
           <ul>
             {pairings.map((p) => {
               return (
-                <li>
+                <li key={`${p.gifter}-${p.giftee}`}>
                   {nameOfUser(p.gifter)} gifts to {nameOfUser(p.giftee)}
                 </li>
               );

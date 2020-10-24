@@ -49,7 +49,7 @@ class relationships extends Component {
     console.log(this.props.relationships);
     return this.props.relationships.map(({ person1, person2 }) => {
       return (
-        <li>
+        <li key={`${person1}-${person2}`}>
           {this.userFor(person1).displayName} -{' '}
           {this.userFor(person2).displayName}
         </li>
@@ -77,7 +77,7 @@ class relationships extends Component {
         <h1>Relationships</h1>
         <ul>
           {this.state.relationships.map(([person1, person2]) => (
-            <li>
+            <li key={`${person1.displayName}-${person2.displayName}`}>
               {person1.displayName} - {person2.displayName}
             </li>
           ))}
