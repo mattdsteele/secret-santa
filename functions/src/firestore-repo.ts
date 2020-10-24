@@ -6,7 +6,7 @@ export interface User {
   uid: string;
   email: string;
   photoURL: string;
-  active: boolean;
+  disabled: boolean;
 }
 export class FirestoreRepo {
   constructor(private store: Firestore) {}
@@ -75,7 +75,7 @@ export class FirestoreRepo {
   async activeUsers() {
     const users = await this.allUsers();
     console.log(`found ${users.length} total users`);
-    const activeUsers = users.filter((u) => u.active !== false);
+    const activeUsers = users.filter((u) => u.disabled !== true);
     console.log(`found ${activeUsers.length} active users`);
     return activeUsers;
   }
