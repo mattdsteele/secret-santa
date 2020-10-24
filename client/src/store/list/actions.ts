@@ -5,7 +5,7 @@ import { User } from 'firebase';
 import { ActionTree } from 'vuex';
 import { firestoreAction } from 'vuexfire';
 
-const currentYear = 2019;
+const currentYear = new Date().getFullYear();
 
 export const actions: ActionTree<ListState, RootState> = {
   init: firestoreAction(async (context, user: User) => {
@@ -26,5 +26,5 @@ export const actions: ActionTree<ListState, RootState> = {
   async updateUserList(context, updatedList: string) {
     context.commit('updateList', updatedList);
     await context.state.listRef!.update({ list: updatedList });
-  }
+  },
 };
