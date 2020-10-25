@@ -5,7 +5,7 @@ const parser = new Commonmark.Parser();
 const writer = new Commonmark.HtmlRenderer();
 const sendEmailAsBurt = functions.httpsCallable('sendEmailAsBurt');
 
-const TEST_MODE = true;
+const TEST_MODE = false;
 
 const burtIntroEmail = `Hello there boys and girls. It's me Burt (aka Santa's Little Helper (no, not the greyhound)). Santa and all his helpers are starting to get real busy here at the North Pole. Before you know it, Christmas will be here. So stop doing the Monster Mash already.
 
