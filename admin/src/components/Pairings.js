@@ -17,7 +17,7 @@ const mapDispatchToProps = (dispatch) => {
 };
 class pairings extends Component {
   state = {
-    year: 2014,
+    year: 2020,
     gifter: null,
     giftee: null,
     pairings: [],

@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { makePairings } from '../pairings/generate-pairings';
 import { allValidPairings } from '../pairings/isValidPairing';
 import { saveNewYear } from '../store/actions';
+const SHOW_PAIRINGS = false;
 const mapStateToProps = (state) => {
   return {
     users: state.users.activeUsers,
@@ -59,15 +60,17 @@ const pairingGenerator = ({
       <>
         <div>
           <h1>New Pairings</h1>
-          <ul>
-            {pairings.map((p) => {
-              return (
-                <li key={`${p.gifter}-${p.giftee}`}>
-                  {nameOfUser(p.gifter)} gifts to {nameOfUser(p.giftee)}
-                </li>
-              );
-            })}
-          </ul>
+          {SHOW_PAIRINGS && (
+            <ul>
+              {pairings.map((p) => {
+                return (
+                  <li key={`${p.gifter}-${p.giftee}`}>
+                    {nameOfUser(p.gifter)} gifts to {nameOfUser(p.giftee)}
+                  </li>
+                );
+              })}
+            </ul>
+          )}
           <button onClick={() => addPairings(pairings, year)}>
             Save Pairings for {year}
           </button>
