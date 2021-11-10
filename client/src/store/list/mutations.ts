@@ -3,6 +3,7 @@ import { MutationTree } from "vuex";
 
 export const mutations: MutationTree<ListState> = {
   updateList(state, newList: string) {
+    console.log('updating list', state, newList)
     state.currentYearList!.list = newList;
   },
   setListRef(state, listRef: firebase.firestore.DocumentReference) {

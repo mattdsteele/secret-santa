@@ -33,7 +33,7 @@ export class FirestoreRepo {
       throw new Error(e);
     }
   }
-  private async listFor(user: string, year: number) {
+  public async listFor(user: string, year: number) {
     const results = await this.store
       .collection('list')
       .where('year', '==', year)

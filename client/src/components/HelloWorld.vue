@@ -47,6 +47,7 @@ const login = namespace("login");
 const photos = namespace("photos");
 import { db } from "../store/firestore";
 import { SecretSantaUser } from "../store/login/types";
+import {defaultWishlist} from '../store/list/wishlist';
 const year = new Date().getFullYear();
 
 @Component
@@ -61,18 +62,44 @@ export default class HelloWorld extends Vue {
   private initPhoto!: any;
   @list.State("editMode")
   private shouldHideSecretPal: any;
+  @list.Action("updateUserList")
+  private updateUserList: any;
+  @list.Action("init")
+  private initList: any;
+  @list.Action("setListEditMode")
+  private setListEditMode!: any;
   private giftee: SecretSantaUser | null = null;
   private secretPalList: string = "";
   private async created() {
     console.log(`Hiding secret pal: ${this.shouldHideSecretPal}`);
     if (this.user) {
       const repo = new FirestoreRepo(db);
-      const [santa, secretPalList] = await repo.santaFor(
-        this.user.uid,
-        `${year}`
-      );
-      this.giftee = santa;
-      this.secretPalList = secretPalList;
+      try {
+        const userList = await repo.listFor(this.user.uid, year);
+        console.log(`found list is ${userList}`);
+        // Check secret pal, but don't fail if not
+
+        try {
+          const [santa, secretPalList] = await repo.santaFor(
+            this.user.uid,
+            `${year}`
+          );
+          this.giftee = santa;
+          this.secretPalList = secretPalList;
+        } catch (e) {
+          console.log(`no secret pal found`)
+          // Dispatch and go to Edit Mode
+          await this.setListEditMode();
+          this.$router.push("/list");
+        }
+      } catch (e) {
+        // If no user list, don't fail 
+        console.log(`no list found`);
+        await this.initList(this.user);
+        await this.updateUserList(defaultWishlist);
+        await this.setListEditMode();
+        this.$router.push("/list");
+      }
     } else {
       this.initPhoto();
     }
