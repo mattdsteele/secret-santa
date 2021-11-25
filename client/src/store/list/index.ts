@@ -14,7 +14,7 @@ export const list: Module<ListState, RootState> = {
   state: {
     currentYearList: undefined,
     listRef: undefined,
-    editMode: false,
+    editMode: true,
   },
   actions,
   mutations,
