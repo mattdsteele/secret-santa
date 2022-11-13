@@ -46,6 +46,7 @@ function BurtMailer() {
     'Carla Steele <carlaps2006@gmail.com>',
     'Patrick Steele <patrick.w.steele@gmail.com>',
     'Eric Steele <e.steele@gmail.com>',
+    'Katie Steele <ktgoose_23@yahoo.com>',
     // 'Jessica Steele <jess.m.hensley@gmail.com>',
     'Jessica Codr <jcake2@gmail.com>',
     'Angela Steele <ange.m.steele@gmail.com>',
