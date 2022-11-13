@@ -20,6 +20,7 @@ jobs:
       - run: cd client && npm ci
       - run: cd client && npm run build
         env:
+          VUE_APP_FIREBASE_APP_ID: ${{ secrets.VUE_APP_FIREBASE_APP_ID }}
           VUE_APP_FIREBASE_API_KEY: ${{ secrets.VUE_APP_FIREBASE_API_KEY }}
           VUE_APP_FIREBASE_MESSAGE_SENDER_ID: ${{ secrets.VUE_APP_FIREBASE_MESSAGE_SENDER_ID }}
       - name: Deploy to firebase
