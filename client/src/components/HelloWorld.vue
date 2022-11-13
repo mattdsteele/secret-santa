@@ -89,7 +89,7 @@ export default class HelloWorld extends Vue {
         } catch (e) {
           console.log(`no secret pal found`)
           // Dispatch and go to Edit Mode
-          await this.setListEditMode();
+          await this.setListEditMode(true);
           this.$router.push("/list");
         }
       } catch (e) {
@@ -97,7 +97,7 @@ export default class HelloWorld extends Vue {
         console.log(`no list found`);
         await this.initList(this.user);
         await this.updateUserList(defaultWishlist);
-        await this.setListEditMode();
+        await this.setListEditMode(true);
         this.$router.push("/list");
       }
     } else {

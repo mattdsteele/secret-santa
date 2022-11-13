@@ -35,7 +35,8 @@ export const actions: ActionTree<ListState, RootState> = {
     context.commit('updateList', updatedList);
     await context.state.listRef!.update({ list: updatedList });
   },
-  async setListEditMode(context) {
-    context.state.editMode = true;
+  async setListEditMode(context, editMode = true) {
+    console.log('setting list edit mode to ', editMode)
+    context.state.editMode = editMode;
   }
 };
