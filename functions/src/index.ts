@@ -38,9 +38,10 @@ export const makeDefaultLists = functions.https.onCall(async ({ year }) => {
   );
   console.log(`generated ${responses.length} lists`);
 });
+const currentYear = new Date().getFullYear();
 export const onUserCreate = functions.auth.user().onCreate(async (user) => {
   const { uid } = user;
-  const year = new Date().getFullYear();
+  const year = currentYear;
   const repo = new FirestoreRepo(firestore);
   await repo.createDefaultList(uid, year);
   console.log(`Added default list for ${uid}`);
@@ -60,3 +61,27 @@ export const emailSecretPal = functions.https.onCall(
     );
   }
 );
+
+export const emailWishlist = functions.https.onRequest(async (req, res) => {
+  console.log('got an email with data');
+  const { body } = req;
+  const objs = body.map(async post => {
+    const { relay_message } = post.msys;
+    const { content } = relay_message;
+    const { html, text } = content;
+    const from: string = relay_message.friendly_from;
+    const repo = new FirestoreRepo(firestore);
+    const user = await repo.userFromEmail(from);
+    await repo.saveList(user.uid, currentYear, text);
+    const response = `We got your list!
+
+    ${text}
+
+    To update your list, just send Burt another email.
+    `
+    await email([from], response, 'Burt got your list!', apiKey);
+  });
+  await Promise.all(objs);
+  console.log(JSON.stringify(req.body, null, 2));
+  res.json({ status: "ok" })
+});

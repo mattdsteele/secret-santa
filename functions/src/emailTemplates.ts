@@ -14,8 +14,7 @@ export const makeSecretSantaEmail = (
     <hr>
     ${htmlList}
     <hr>
-    <p>You can also view ${pal.displayName}'s list at <a href="https://secretsanta.steele.blue">secretsanta.steele.blue</a></p>
-    <p>Reminder: not everyone is going to be in Kansas this year, so you may need to surreptitiously find out where to mail your shipments.</p>
+    <p>Reminder: not everyone may be in Kansas this year, so you may need to surreptitiously find out where to mail your shipments.</p>
     <em>🧝‍♀️ Burt the Elf 🧝‍♂️</em>
     `;
 };

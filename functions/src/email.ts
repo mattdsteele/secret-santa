@@ -10,7 +10,7 @@ export const email = async (
   const response = await client.transmissions.send({
     content: {
       from: 'Burt the Elf 🧝‍♂️ <burt@secretsanta-mail.steele.blue>',
-      reply_to: 'matt@steele.blue',
+      reply_to: 'burt@secretsanta.steele.blue',
       subject,
       html: `
           <html><body>

@@ -11,12 +11,16 @@ export interface User {
 export class FirestoreRepo {
   constructor(private store: Firestore) {}
   async createDefaultList(uid: string, year: number) {
-    const list = this.store.collection('list');
-    await list.add({
-      year,
-      user: uid,
-      list: defaultWishlist,
-    });
+    await this.saveList(uid, year, defaultWishlist);
+  }
+  async userFromEmail(email: string): Promise<User> {
+    const results = await this.store.collection("users").where("email", "==", email).get();
+    if (results.empty) {
+      throw new Error(`No user for email ${email}`);
+    }
+    const [result] = results.docs;
+    const data = result.data();
+    return data as User;;
   }
   async santaFor(gifterId: string, year: string) {
     try {
@@ -54,6 +58,15 @@ export class FirestoreRepo {
     const gifteeData = gifteeUser.data();
     return gifteeData as User;
   }
+  async saveList(userId: string, year: number, list: string) {
+    const listCollection = this.store.collection('list');
+    await listCollection.add({
+      year,
+      user: userId,
+      list: list,
+    });
+  }
+
   async listFor(user: string, year: number) {
     const results = await this.store
       .collection('list')
