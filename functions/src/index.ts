@@ -91,6 +91,5 @@ ${htmlList}
     await email([from], response, 'Burt got your list!', apiKey);
   });
   await Promise.all(objs);
-  console.log(JSON.stringify(req.body, null, 2));
   res.json({ status: "ok" })
 });

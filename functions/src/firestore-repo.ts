@@ -16,9 +16,9 @@ export class FirestoreRepo {
 
   async deleteWishlists(userId: string, year: number) {
     const results = await this.store.collection("list").where("uid", "==", userId).where("year", "==", year).get();
-    await Promise.all(results.docs.map(async d => {
-      return await d.ref.delete()
-    }))
+    results.forEach(async r => {
+      await r.ref.delete();
+    });
   }
 
   async userFromEmail(email: string): Promise<User> {
