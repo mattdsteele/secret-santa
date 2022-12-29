@@ -19,7 +19,7 @@ As in year's past, there are a few rules:
 
 Your "Secret Pal" will not be your spouse/significant other. You're still on "the hook" for them. It also won't be someone you've had in recent years (assuming the supercomputer got it right).
 
-This year, we'll collect lists via email. *To submit a list, just reply to this message* (or send an email to burt@secretsanta.steele.blue).
+This year, we'll collect lists via email. **To submit a list, just reply to this message** (or send an email to burt@secretsanta.steele.blue).
 
 Fill out your form early! You can save/update it until **November 26th**, at which point I'll push a button on the supercomputer and it will e-mail your list to your Secret Santa. If you fail to submit before the deadline, all gifts intended for you may go to Santa's Little Helper.
 

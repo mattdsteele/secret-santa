@@ -15,9 +15,11 @@ export class FirestoreRepo {
   }
 
   async deleteWishlists(userId: string, year: number) {
-    const results = await this.store.collection("list").where("uid", "==", userId).where("year", "==", year).get();
+    const results = await this.store.collection("list").where("user", "==", userId).where("year", "==", year).get();
+    console.log(`found ${results.size} existing lists`);
     results.forEach(async r => {
       await r.ref.delete();
+      console.log(`deleted ref ${r.ref.id}`);
     });
   }
 
