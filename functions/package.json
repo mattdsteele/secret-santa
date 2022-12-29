@@ -10,6 +10,7 @@
   },
   "main": "lib/index.js",
   "dependencies": {
+    "email-reply-parser": "^1.4.1",
     "firebase-admin": "^11",
     "firebase-functions": "^4",
     "markdown-it": "^12",

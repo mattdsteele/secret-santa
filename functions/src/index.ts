@@ -3,6 +3,8 @@ import * as functions from 'firebase-functions';
 import { email } from './email';
 import { FirestoreRepo } from './firestore-repo';
 import { makeSecretSantaEmail } from './emailTemplates';
+const EmailReplyParser =  require('email-reply-parser');
+import MarkdownIt = require('markdown-it');
 
 admin.initializeApp();
 const firestore = admin.firestore();
@@ -72,13 +74,19 @@ export const emailWishlist = functions.https.onRequest(async (req, res) => {
     const from: string = relay_message.friendly_from;
     const repo = new FirestoreRepo(firestore);
     const user = await repo.userFromEmail(from);
-    await repo.saveList(user.uid, currentYear, text);
-    const response = `We got your list!
+    const wishlist = new EmailReplyParser().parseReply(text);
+    await repo.saveList(user.uid, currentYear, wishlist);
+    const md = new MarkdownIt({ html: true, linkify: true });
+    const htmlList = md.render(wishlist);
+    const response = `<p><strong>We got your list!</strong></p>
 
-    ${text}
+<p>Your list is:</p>
 
-    To update your list, just send Burt another email.
-    `
+<blockquote>
+${htmlList}
+</blockquote>
+
+<p><em>To update, send Burt another email with a new list.</em></p>`
     await email([from], response, 'Burt got your list!', apiKey);
   });
   await Promise.all(objs);
