@@ -13,6 +13,14 @@ export class FirestoreRepo {
   async createDefaultList(uid: string, year: number) {
     await this.saveList(uid, year, defaultWishlist);
   }
+
+  async deleteWishlists(userId: string, year: number) {
+    const results = await this.store.collection("list").where("uid", "==", userId).where("year", "==", year).get();
+    await Promise.all(results.docs.map(async d => {
+      return await d.ref.delete()
+    }))
+  }
+
   async userFromEmail(email: string): Promise<User> {
     const results = await this.store.collection("users").where("email", "==", email).get();
     if (results.empty) {

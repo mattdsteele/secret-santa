@@ -19,7 +19,7 @@ As in year's past, there are a few rules:
 
 Your "Secret Pal" will not be your spouse/significant other. You're still on "the hook" for them. It also won't be someone you've had in recent years (assuming the supercomputer got it right).
 
-**Click here to sign up for the Steele Family Gift Exchange: [https://secretsanta.steele.blue](https://secretsanta.steele.blue)**
+This year, we'll collect lists via email. *To submit a list, just reply to this message* (or send an email to burt@secretsanta.steele.blue).
 
 Fill out your form early! You can save/update it until **November 26th**, at which point I'll push a button on the supercomputer and it will e-mail your list to your Secret Santa. If you fail to submit before the deadline, all gifts intended for you may go to Santa's Little Helper.
 
@@ -30,11 +30,9 @@ On November 27th I will e-mail you the list submitted by your Secret Pal, and yo
 Burt the elf
 `;
 
-const burtReminderEmail = `Friendly reminder that you have **3 days left** to put in your lists for your Secret Santa.
+const burtReminderEmail = `Friendly reminder that you have **3 days left** to put in your lists for your Secret Santa. *You can submit your list by replying to this email*.
 
 I'll be firing up the supercomputer to assign Secret Pals at **11:59pm on November 26**, so get on it!
-
-[https://secretsanta.steele.blue](https://secretsanta.steele.blue)
 
 Burt the Elf
 `;

@@ -74,6 +74,7 @@ export const emailWishlist = functions.https.onRequest(async (req, res) => {
     const from: string = relay_message.friendly_from;
     const repo = new FirestoreRepo(firestore);
     const user = await repo.userFromEmail(from);
+    await repo.deleteWishlists(user.uid, currentYear);
     const wishlist = new EmailReplyParser().parseReply(text);
     await repo.saveList(user.uid, currentYear, wishlist);
     const md = new MarkdownIt({ html: true, linkify: true });
