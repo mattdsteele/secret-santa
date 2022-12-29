@@ -24,13 +24,13 @@ export class FirestoreRepo {
   }
 
   async userFromEmail(email: string): Promise<User> {
-    const results = await this.store.collection("users").where("email", "==", email).get();
+    const results = await this.store.collection("users").where("email", "==", email).where("disabled", "!=", true).get();
     if (results.empty) {
       throw new Error(`No user for email ${email}`);
     }
     const [result] = results.docs;
     const data = result.data();
-    return data as User;;
+    return data as User;
   }
   async santaFor(gifterId: string, year: string) {
     try {
