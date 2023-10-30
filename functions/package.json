@@ -20,7 +20,7 @@
     "node": "16"
   },
   "devDependencies": {
-    "@types/markdown-it": "^12",
+    "@types/markdown-it": "^13",
     "@types/node": "^18",
     "@types/sparkpost": "^2.1.4",
     "firebase-tools": "^11",
