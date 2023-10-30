@@ -17,8 +17,6 @@ jobs:
       - uses: actions/setup-node@v2
         with:
           node-version: '20'
-      - run: cd client && npm ci
-      - run: cd client && npm run build
         env:
           VUE_APP_FIREBASE_APP_ID: ${{ secrets.VUE_APP_FIREBASE_APP_ID }}
           VUE_APP_FIREBASE_API_KEY: ${{ secrets.VUE_APP_FIREBASE_API_KEY }}
