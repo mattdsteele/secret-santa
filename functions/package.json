@@ -17,7 +17,7 @@
     "sparkpost": "^2.1.4"
   },
   "engines": {
-    "node": "16"
+    "node": "20"
   },
   "devDependencies": {
     "@types/markdown-it": "^13",
