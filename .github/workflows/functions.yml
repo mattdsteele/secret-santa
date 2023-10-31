@@ -19,7 +19,9 @@ jobs:
           # Version Spec of the version to use in SemVer notation.
           # It also emits such aliases as lts, latest, nightly and canary builds
           # Examples: 12.x, 10.15.1, >=10.15.0, lts/Hydrogen, 16-nightly, latest, node
-          node-version: '20'
+
+          # Have to use 16 with firebase-action, as of Oct '23
+          node-version: '16'
       - run: cd functions && npm ci
       - run: cd functions && npm run build
       - name: Deploy to firebase
