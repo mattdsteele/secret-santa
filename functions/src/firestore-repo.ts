@@ -29,7 +29,7 @@ export class FirestoreRepo {
       throw new Error(`No user for email '${email}'!`);
     }
     const [result] = results.docs;
-    const data: User = result.data();
+    const data = result.data() as User;
     if (data.disabled) {
         throw new Error(`Found user for email ${email}, but account ${data.uid} was disabed`);
     }
