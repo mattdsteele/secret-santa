@@ -26,7 +26,7 @@ export class FirestoreRepo {
   async userFromEmail(email: string): Promise<User> {
     const results = await this.store.collection("users").where("email", "==", email).where("disabled", "!=", true).get();
     if (results.empty) {
-      throw new Error(`No user for email ${email}`);
+      throw new Error(`No user for email '${email}'!`);
     }
     const [result] = results.docs;
     const data = result.data();
