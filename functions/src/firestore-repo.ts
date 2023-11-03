@@ -24,13 +24,16 @@ export class FirestoreRepo {
   }
 
   async userFromEmail(email: string): Promise<User> {
-    const results = await this.store.collection("users").where("email", "==", email).where("disabled", "!=", true).get();
+    const results = await this.store.collection("users").where("email", "==", email).get();
     if (results.empty) {
       throw new Error(`No user for email '${email}'!`);
     }
     const [result] = results.docs;
-    const data = result.data();
-    return data as User;
+    const data: User = result.data();
+    if (data.disabled) {
+        throw new Error(`Found user for email ${email}, but account ${data.uid} was disabed`);
+    }
+    return data;
   }
   async santaFor(gifterId: string, year: string) {
     try {
