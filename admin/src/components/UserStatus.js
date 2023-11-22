@@ -29,6 +29,20 @@ class userStatus extends Component {
     );
   }
   render() {
+    console.log('rendering status');
+    let usersWithoutLists = undefined;
+    if (this.props.lists && this.props.users) {
+      console.log('has data')
+      const currentYearLists = this.props.lists?.filter(
+        (l) => l.year === this.props.year
+      );
+      usersWithoutLists = this.props.users?.filter((u) =>
+        currentYearLists.every((s) => s.user !== u.uid)
+      );
+      console.log(currentYearLists);
+      console.log('users', this.props.users);
+      console.log('without lists', usersWithoutLists);
+    }
     return (
       <>
         <label htmlFor="year">Year:</label> {this.props.year}
@@ -39,6 +53,15 @@ class userStatus extends Component {
               .filter((list) => list.year === this.props.year)
               .map((list) => {
                 return <li key={list.user}>{this.nameOfUser(list.user)}</li>;
+              })}
+        </ul>
+
+        <p>Has <strong>not</strong> submitted a list:</p>
+        <ul>
+          {usersWithoutLists &&
+            usersWithoutLists
+              .map((list) => {
+                return <li key={list.uid}>{this.nameOfUser(list.uid)}</li>;
               })}
         </ul>
       </>
