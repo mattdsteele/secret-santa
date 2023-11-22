@@ -7,7 +7,7 @@
     "firebase": "^7.24.0",
     "react": "^16.14.0",
     "react-dom": "^16.14.0",
-    "react-redux": "^5.1.2",
+    "react-redux": "^7",
     "react-scripts": "^5",
     "redux": "^4.0.5",
     "redux-logger": "^3.0.6",
@@ -35,6 +35,6 @@
   "devDependencies": {
     "@types/react": "^16.9.53",
     "@types/react-dom": "^16.9.8",
-    "@types/react-redux": "^6.0.14"
+    "@types/react-redux": "^7"
   }
 }

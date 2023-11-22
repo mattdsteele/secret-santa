@@ -1,11 +1,10 @@
 import React, { useState } from 'react';
 import { functions } from '../store/firebase';
 import Commonmark from 'commonmark';
+import { useSelector } from "react-redux";
 const parser = new Commonmark.Parser();
 const writer = new Commonmark.HtmlRenderer();
 const sendEmailAsBurt = functions.httpsCallable('sendEmailAsBurt');
-
-const TEST_MODE = false;
 
 const burtIntroEmail = `Hello there boys and girls. It's me Burt (aka Santa's Little Helper (no, not the greyhound)). Santa and all his helpers are starting to get real busy here at the North Pole. Before you know it, Christmas will be here. So stop doing the Monster Mash already.
 
@@ -38,90 +37,98 @@ Burt the Elf
 `;
 
 function BurtMailer() {
-  const testList = ['Matt S <orphum@gmail.com>'];
-  const rest = [
-    'Merle Steele <merleds2006@gmail.com>',
-    'Carla Steele <carlaps2006@gmail.com>',
-    'Patrick Steele <patrick.w.steele@gmail.com>',
-    'Eric Steele <e.steele@gmail.com>',
-    'Katie Steele <ktgoose_23@yahoo.com>',
-    // 'Jessica Steele <jess.m.hensley@gmail.com>',
-    'Jessica Codr <jcake2@gmail.com>',
-    'Angela Steele <ange.m.steele@gmail.com>',
-    'Judy Steele <rsteele1@kc.rr.com>',
-    'Rick Steele <rickandjudysteele@gmail.com>',
-  ];
-  const fullEmailList = [...testList, ...rest];
-  const emailList = TEST_MODE ? testList : fullEmailList;
+  const mattList = ['Matt S <orphum@gmail.com>'];
   const [content, setContent] = useState('');
   const [renderedResult, setRenderedResult] = useState('');
-  const [subject, setSubject] = useState('A message from Burt the Elf');
-  const sendEmail = async (e) => {
-    e.preventDefault();
-    console.log('okay send email', parser);
-    const htmlContent = writer.render(parser.parse(content));
-    console.log('parsed, content', htmlContent);
-    const result = await sendEmailAsBurt({
-      emailList,
-      subject,
-      content: htmlContent,
-    });
-    // Read result of the Cloud Function.
-    var sanitizedMessage = result.data;
-    console.log(sanitizedMessage);
-  };
-  const renderResult = () => {
-    const htmlContent = writer.render(parser.parse(content));
-    setRenderedResult(htmlContent);
-  };
-  const setText = (content) => {
-    setContent(content);
-  };
+  const activeUsers = useSelector(s => s.users.activeUsers);
+  const year = useSelector(s => s.lists.year);
+  const lists = useSelector(s => s.lists.all);
+  const [subject, setSubject] = useState("A message from Burt the Elf");
+  if (activeUsers && year && lists) {
+    let usersWithoutLists = undefined;
+    const currentYearLists = lists?.filter(
+      (l) => l.year === year
+    );
+    usersWithoutLists = activeUsers.filter((u) =>
+      currentYearLists.every((s) => s.user !== u.uid)
+    ).map(a => a.email);
+    console.log(currentYearLists);
+    console.log('burtmailer without lists', usersWithoutLists);
+    const fullEmailList = activeUsers.map(a => a.email);
+    console.log('burtmailer full email', fullEmailList);
 
-  return (
-    <div>
-      <p>
-        Subject:{' '}
-        <input
-          name=""
-          value={subject}
-          onChange={(e) => setSubject(e.target.value)}
-        />
-      </p>
-      <p>Emailers:</p>
-      <ul>
-        {emailList.map((e) => (
-          <li key={e}>{e}</li>
-        ))}
-      </ul>
-      <p>Content</p>
-      <button onClick={() => setText(burtIntroEmail)}>Intro</button>
-      <button onClick={() => setText(burtReminderEmail)}>Reminder</button>
-      <form onSubmit={sendEmail}>
-        <textarea
-          name="data"
-          onChange={(e) => setContent(e.target.value)}
-          value={content}
-        />
-        <div>
-          <button type="button" onClick={renderResult}>
-            Preview
-          </button>
-          {renderedResult && (
-            <>
-              <div
-                style={{ border: '1px solid black' }}
-                dangerouslySetInnerHTML={{ __html: renderedResult }}
-              />
-              <button type="submit">
-                Email with data ({emailList.join(',')})
-              </button>
-            </>
-          )}
-        </div>
-      </form>
-    </div>
-  );
+    const sendEmail = async (e, addresses) => {
+      e.preventDefault();
+      console.log("okay send email", parser);
+      const htmlContent = writer.render(parser.parse(content));
+      console.log("parsed, content", htmlContent);
+      const result = await sendEmailAsBurt({
+        emailList: addresses,
+        subject,
+        content: htmlContent,
+      });
+      // Read result of the Cloud Function.
+      var sanitizedMessage = result.data;
+      console.log(sanitizedMessage);
+    };
+    const renderResult = () => {
+      const htmlContent = writer.render(parser.parse(content));
+      setRenderedResult(htmlContent);
+    };
+    const setText = (content) => {
+      setContent(content);
+    };
+
+    return (
+      <div>
+        <p>
+          Subject:{" "}
+          <input
+            name=""
+            value={subject}
+            onChange={(e) => setSubject(e.target.value)}
+          />
+        </p>
+        <p>Content</p>
+        <button onClick={() => setText(burtIntroEmail)}>Intro</button>
+        <button onClick={() => setText(burtReminderEmail)}>Reminder</button>
+        <form>
+          <textarea
+            name="data"
+            onChange={(e) => setContent(e.target.value)}
+            value={content}
+          />
+          <div>
+            <button type="button" onClick={renderResult}>
+              Preview
+            </button>
+            {renderedResult && (
+              <>
+                <div
+                  style={{ border: "1px solid black" }}
+                  dangerouslySetInnerHTML={{ __html: renderedResult }}
+                />
+                <button type="button" onClick={e => sendEmail(e, fullEmailList)}>
+                  Email everyone with data ({fullEmailList.length} people)
+                </button>
+                <hr />
+                <button type="button" onClick={e => sendEmail(e, usersWithoutLists)}>
+                  Email unsubmitted people with data ({usersWithoutLists.length} people)
+                </button>
+                <hr />
+                <button type="button" onClick={e => sendEmail(e, mattList)}>
+                  Email just Matt ({mattList.length} people)
+                </button>
+                <hr />
+              </>
+            )}
+          </div>
+        </form>
+      </div>
+    );
+  } else {
+    return <div>...</div>;
+  }
 }
 
 export { BurtMailer };
