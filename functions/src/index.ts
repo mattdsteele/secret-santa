@@ -1,5 +1,6 @@
 import * as admin from 'firebase-admin';
 import * as https from 'firebase-functions/v2/https';
+import * as params from 'firebase-functions/params';
 import * as functions from 'firebase-functions/v1';
 import { email } from './email';
 import { FirestoreRepo } from './firestore-repo';
@@ -10,11 +11,12 @@ import MarkdownIt = require('markdown-it');
 admin.initializeApp();
 const firestore = admin.firestore();
 firestore.settings({});
-const apiKey = functions.config().sparkpost.apikey;
+const sparkpostKey = params.defineString('SPARKPOST_API_KEY');
+// const apiKey = functions.config().sparkpost.apikey;
 
 export const sendEmailAsBurt = https.onCall(async (data) => {
   const { emailList, content, subject = 'A message from Burt the Elf' } = data.data;
-  return await email(emailList, content, subject, apiKey);
+  return await email(emailList, content, subject, sparkpostKey.value());
 });
 
 export const sendTestEmail = https.onCall(async (data) => {
@@ -25,7 +27,7 @@ export const sendTestEmail = https.onCall(async (data) => {
     [emailAddress],
     body,
     'Hello SECRET SANTA',
-    apiKey
+    sparkpostKey.value()
   );
   return emailResults.id;
 }
@@ -63,7 +65,7 @@ export const emailSecretPal = https.onCall(
       [userData.email],
       emailBody,
       'Your Secret Pal has been chosen!',
-      apiKey
+      sparkpostKey.value()
     );
   }
 );
@@ -92,7 +94,7 @@ ${htmlList}
 </blockquote>
 
 <p><em>To update, send Burt another email with a new list.</em></p>`
-    await email([from], response, 'Burt got your list!', apiKey);
+    await email([from], response, 'Burt got your list!', sparkpostKey.value());
   });
   await Promise.all(objs);
   res.json({ status: "ok" })

@@ -29,5 +29,6 @@ jobs:
         env:
           # GCP_SA_KEY: ${{ secrets.GCP_SA_KEY }}
           FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
+          CONFIG_VALUES: ${{secrets.FIREBASE_FUNCTION_CONFIGS }}
         with:
           args: deploy --only functions --debug
