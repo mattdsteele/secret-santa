@@ -1,5 +1,6 @@
 import * as admin from 'firebase-admin';
-import * as functions from 'firebase-functions';
+import * as https from 'firebase-functions/v2/https';
+import * as functions from 'firebase-functions/v1';
 import { email } from './email';
 import { FirestoreRepo } from './firestore-repo';
 import { makeSecretSantaEmail } from './emailTemplates';
@@ -11,26 +12,27 @@ const firestore = admin.firestore();
 firestore.settings({});
 const apiKey = functions.config().sparkpost.apikey;
 
-export const sendEmailAsBurt = functions.https.onCall(async (data) => {
-  const { emailList, content, subject = 'A message from Burt the Elf' } = data;
+export const sendEmailAsBurt = https.onCall(async (data) => {
+  const { emailList, content, subject = 'A message from Burt the Elf' } = data.data;
   return await email(emailList, content, subject, apiKey);
 });
 
-export const sendTestEmail = functions.https.onCall(
-  async (emailAddress: string) => {
-    const body = `<p>Hello ${emailAddress}! I promise you that I am not spam.</p>
+export const sendTestEmail = https.onCall(async (data) => {
+  const { emailAddress } = data.data;
+  const body = `<p>Hello ${emailAddress}! I promise you that I am not spam.</p>
             <p><a href="https://secretsanta.steele.blue">Check out Secret Santa</a></p>`;
-    const emailResults = await email(
-      [emailAddress],
-      body,
-      'Hello SECRET SANTA',
-      apiKey
-    );
-    return emailResults.id;
-  }
+  const emailResults = await email(
+    [emailAddress],
+    body,
+    'Hello SECRET SANTA',
+    apiKey
+  );
+  return emailResults.id;
+}
 );
 
-export const makeDefaultLists = functions.https.onCall(async ({ year }) => {
+export const makeDefaultLists = https.onCall(async ({ data }) => {
+  const { year } = data;
   console.log('Making default lists!', year);
   const repo = new FirestoreRepo(firestore);
   const responses = await Promise.all(
@@ -41,6 +43,7 @@ export const makeDefaultLists = functions.https.onCall(async ({ year }) => {
   console.log(`generated ${responses.length} lists`);
 });
 const currentYear = new Date().getFullYear();
+
 export const onUserCreate = functions.auth.user().onCreate(async (user) => {
   const { uid } = user;
   const year = currentYear;
@@ -49,8 +52,9 @@ export const onUserCreate = functions.auth.user().onCreate(async (user) => {
   console.log(`Added default list for ${uid}`);
 });
 
-export const emailSecretPal = functions.https.onCall(
-  async ({ userId, year }) => {
+export const emailSecretPal = https.onCall(
+  async ({ data }) => {
+    const { userId, year } = data;
     const repo = new FirestoreRepo(firestore);
     const userData = await repo.userData(userId);
     const { gifteeData, list } = await repo.santaFor(userId, year);
@@ -64,7 +68,7 @@ export const emailSecretPal = functions.https.onCall(
   }
 );
 
-export const emailWishlist = functions.https.onRequest(async (req, res) => {
+export const emailWishlist = https.onRequest(async (req, res) => {
   console.log('got an email with data');
   const { body } = req;
   const objs = body.map(async post => {
