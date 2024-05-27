@@ -24,8 +24,8 @@ jobs:
           node-version: '20'
       - run: cd functions && npm ci
       - run: cd functions && npm run build
-          - name: Make envfile
-      - uses: SpicyPizza/create-envfile@v2.0
+      - name: Make envfile
+        uses: SpicyPizza/create-envfile@v2.0
         with:
           envkey_SPARKPOST_API_KEY: ${{ secrets.SPARKPOST_API_KEY }}
           directory: functions
