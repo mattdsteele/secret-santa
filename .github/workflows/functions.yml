@@ -24,6 +24,14 @@ jobs:
           node-version: '20'
       - run: cd functions && npm ci
       - run: cd functions && npm run build
+          - name: Make envfile
+      - uses: SpicyPizza/create-envfile@v2.0
+        with:
+          envkey_SPARKPOST_API_KEY: ${{ secrets.SPARKPOST_API_KEY }}
+          directory: functions
+          file_name: .env
+          fail_on_empty: false
+          sort_keys: false
       - name: Deploy to firebase
         uses: w9jds/firebase-action@master
         env:
