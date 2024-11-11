@@ -12,6 +12,7 @@ admin.initializeApp();
 const firestore = admin.firestore();
 firestore.settings({});
 const sparkpostKey = params.defineString('SPARKPOST_API_KEY');
+console.log('sparkpost api', sparkpostKey.value());
 // const apiKey = functions.config().sparkpost.apikey;
 
 export const sendEmailAsBurt = https.onCall(async (data) => {
