@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { functions } from '../store/firebase';
+import { httpsCallable } from '../store/firebase';
 import { getUsers } from '../store/actions';
-const defaultLists = functions.httpsCallable('makeDefaultLists');
+const defaultLists = httpsCallable('makeDefaultLists');
 
 const mapStateToProps = (state) => {
   return {
