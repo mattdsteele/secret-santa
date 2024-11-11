@@ -1,8 +1,9 @@
-import { firestore } from './firebase';
+import { db } from './firebase';
+import {getDocs, collection} from 'firebase/firestore';
 import { actionNames } from './reducers';
 
 export const getUsers = () => async (dispatch) => {
-  const usersRef = await firestore.collection('users').get();
+  const usersRef = await getDocs(collection(db, 'users'));
   if (usersRef.empty) {
     console.log('empty list');
   } else {
@@ -14,7 +15,7 @@ export const getUsers = () => async (dispatch) => {
 };
 
 export const getAllLists = () => async (dispatch) => {
-  const listsRef = await firestore.collection('list').get();
+  const listsRef = await getDocs(collection(db,'list'));
   if (listsRef.empty) {
     console.log('empty list');
   } else {
@@ -25,7 +26,7 @@ export const getAllLists = () => async (dispatch) => {
 };
 export const saveRelationships = (relationships) => async (dispatch) => {
   console.log('checking relationships', relationships);
-  const relationshipCollection = firestore.collection('relationships');
+  const relationshipCollection = getDocs(collection(db,'relationships'));
   for (let i = 0; i < relationships.length; i++) {
     const [person1, person2] = relationships[i];
     await relationshipCollection.add({
@@ -35,7 +36,7 @@ export const saveRelationships = (relationships) => async (dispatch) => {
   }
 };
 export const saveYearPairings = (year, pairings) => async (dispatch) => {
-  const yearCollection = firestore.collection('pairings');
+  const yearCollection = getDocs(collection(db, 'pairings'));
   for (let i = 0; i < pairings.length; i++) {
     const [gifter, giftee] = pairings[i];
     console.log('saving pairing', gifter, giftee);
@@ -48,8 +49,8 @@ export const saveYearPairings = (year, pairings) => async (dispatch) => {
 };
 
 export const getAllPairings = () => async (dispatch) => {
-  const relationshipsRef = await firestore
-    .collection('pairings')
+  const relationshipsRef = await getDocs
+    .collection(db, 'pairings')
     .orderBy('year', 'asc')
     .get();
   if (relationshipsRef.empty) {
@@ -61,7 +62,7 @@ export const getAllPairings = () => async (dispatch) => {
   }
 };
 export const getAllRelationships = () => async (dispatch) => {
-  const relationshipsRef = await firestore.collection('relationships').get();
+  const relationshipsRef = await getDocs(collection(db, 'relationships').get());
   if (relationshipsRef.empty) {
     console.log('empty list');
   } else {

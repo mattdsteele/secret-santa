@@ -14,7 +14,7 @@ export const firebaseConfig = {
   messagingSenderId: process.env.REACT_APP_FIREBASE_MESSAGE_SENDER_ID,
 };
 
-firebase.initializeApp(firebaseConfig);
-const firestore = getFirestore();
+const app = firebase.initializeApp(firebaseConfig);
+const db = getFirestore(app);
 const functions = getFunctions();
-export { firebase, firestore, functions, httpsCallable };
+export { firebase, db, db as firestore, functions, httpsCallable };
