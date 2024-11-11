@@ -1,6 +1,6 @@
 import React from 'react';
-import { httpsCallable } from '../store/firebase';
-const sendTestEmail = httpsCallable('sendTestEmail');
+import { functions, httpsCallable } from '../store/firebase';
+const sendTestEmail = httpsCallable(functions, 'sendTestEmail');
 
 const DispatchFirebaseFunction = () => {
   const email = async address => {

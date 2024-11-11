@@ -1,7 +1,7 @@
 import React from 'react';
-import { httpsCallable } from '../store/firebase';
+import { functions, httpsCallable } from '../store/firebase';
 import { connect } from 'react-redux';
-const emailSecretPal = httpsCallable('emailSecretPal');
+const emailSecretPal = httpsCallable(functions, 'emailSecretPal');
 const year = new Date().getFullYear();
 const mapStateToProps = (state) => {
   return {
