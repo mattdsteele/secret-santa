@@ -12,6 +12,7 @@ export const firebaseConfig = {
   projectId: "steele-secret-santa",
   storageBucket: "steele-secret-santa.appspot.com",
   messagingSenderId: process.env.REACT_APP_FIREBASE_MESSAGE_SENDER_ID,
+  appId: "1:57135042206:web:722d070b34810d6cd4758f"
 };
 
 const app = firebase.initializeApp(firebaseConfig);
