@@ -38,7 +38,7 @@ class pairings extends Component {
   }
   render() {
     return (
-      <div className="hidden">
+      <div className="">
         <h1>Year: {this.state.year}</h1>
         {this.props.users && (
           <>

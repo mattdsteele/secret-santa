@@ -3,6 +3,8 @@ import { connect } from 'react-redux';
 import { getAllRelationships, saveRelationships } from '../store/actions';
 import { User } from './User';
 
+// Creates the relationship definitions themselves
+
 const mapStateToProps = (store) => {
   return {
     users: store.users.activeUsers,
