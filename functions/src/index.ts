@@ -85,15 +85,13 @@ export const emailWishlist = https.onRequest(async (req, res) => {
     await repo.saveList(user.uid, currentYear, wishlist);
     const md = new MarkdownIt({ html: true, linkify: true });
     const htmlList = md.render(wishlist);
-    const response = `<p><strong>We got your list!</strong></p>
+    const response = `<p><strong>Burt got your list!</strong></p>
 
 <p>Your list is:</p>
 
-<blockquote>
 ${htmlList}
-</blockquote>
 
-<p><em>To update, send Burt another email with a new list.</em></p>`
+<p><em>To update your list, send Burt another email with your new list.</em></p>`
     await email([from], response, 'Burt got your list!', sparkpostKey.value());
   });
   await Promise.all(objs);
