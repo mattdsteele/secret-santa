@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { functions, httpsCallable } from '../store/firebase';
 import {Parser, HtmlRenderer} from 'commonmark';
 import { useSelector } from "react-redux";
+import { defaultWishlist } from '../wishlist';
 const parser = new Parser();
 const writer = new HtmlRenderer();
 const sendEmailAsBurt = httpsCallable(functions, 'sendEmailAsBurt');
@@ -27,6 +28,19 @@ To help you organize your time and get your wish list in on or before the Novemb
 On November 27th I will e-mail you the list submitted by your Secret Pal, and you should be off to the races. And if you have any problems entering your list, don't bug me. Bug Matt.
 
 Burt the elf
+`;
+
+const burtInstructionEmail = `Hello boys and girls. I see that some of you have submitted lists, which makes Santa's Little Helper happy.
+
+Others have not been as nice. I assume you must still be checking your lists twice before submitting. That's Santa's job!
+
+Because fortune favors the bold, here's a template to get started (copy/paste and reply to this email):
+
+\`\`\`
+${defaultWishlist}
+\`\`\`
+
+Burt the Elf
 `;
 
 const burtReminderEmail = `Friendly reminder that you have **3 days left** to put in your lists for your Secret Santa. *You can submit your list by replying to this email*.
@@ -91,6 +105,7 @@ function BurtMailer() {
         </p>
         <p>Content</p>
         <button onClick={() => setText(burtIntroEmail)}>Intro</button>
+        <button onClick={() => setText(burtInstructionEmail)}>Default</button>
         <button onClick={() => setText(burtReminderEmail)}>Reminder</button>
         <form>
           <textarea
