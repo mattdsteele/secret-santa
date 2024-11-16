@@ -1,5 +1,4 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { AllUsers } from './components/AllUsers';
 import { BurtMailer } from './components/BurtMailer';
@@ -12,6 +11,7 @@ import './index.css';
 import * as serviceWorker from './serviceWorker';
 import { store } from './store';
 import { PalEmailer } from './components/SecretPalEmailer';
+import {createRoot} from 'react-dom/client'
 
 const Main = () => {
   return (
@@ -33,7 +33,8 @@ const main = (
     <Main />
   </Provider>
 );
-ReactDOM.render(main, document.getElementById('root'));
+const root = createRoot(document.getElementById('root'));
+root.render(main);
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.
