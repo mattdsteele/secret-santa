@@ -1,5 +1,5 @@
 import { db } from './firebase';
-import {getDocs, collection} from 'firebase/firestore';
+import {getDocs, collection, query, orderBy} from 'firebase/firestore';
 import { actionNames } from './reducers';
 
 export const getUsers = () => async (dispatch) => {
@@ -49,10 +49,10 @@ export const saveYearPairings = (year, pairings) => async (dispatch) => {
 };
 
 export const getAllPairings = () => async (dispatch) => {
-  const relationshipsRef = await getDocs
-    .collection(db, 'pairings')
-    .orderBy('year', 'asc')
-    .get();
+  const relationshipsCollection = collection(db, 'pairings');
+
+  const relationshipsQuery = query(relationshipsCollection, orderBy('year', 'asc'));
+  const relationshipsRef = await getDocs(relationshipsQuery);
   if (relationshipsRef.empty) {
     console.log('empty list');
   } else {
@@ -62,7 +62,7 @@ export const getAllPairings = () => async (dispatch) => {
   }
 };
 export const getAllRelationships = () => async (dispatch) => {
-  const relationshipsRef = await getDocs(collection(db, 'relationships').get());
+  const relationshipsRef = await getDocs(query(collection(db, 'relationships')));
   if (relationshipsRef.empty) {
     console.log('empty list');
   } else {
