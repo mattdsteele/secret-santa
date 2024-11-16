@@ -1,5 +1,5 @@
 import { db } from './firebase';
-import {getDocs, collection, query, orderBy} from 'firebase/firestore';
+import {getDocs, collection, query, orderBy, addDoc} from 'firebase/firestore';
 import { actionNames } from './reducers';
 
 export const getUsers = () => async (dispatch) => {
@@ -36,11 +36,11 @@ export const saveRelationships = (relationships) => async (dispatch) => {
   }
 };
 export const saveYearPairings = (year, pairings) => async (dispatch) => {
-  const yearCollection = getDocs(collection(db, 'pairings'));
+  const yearCollection = collection(db, 'pairings');
   for (let i = 0; i < pairings.length; i++) {
     const [gifter, giftee] = pairings[i];
     console.log('saving pairing', gifter, giftee);
-    await yearCollection.add({
+    await addDoc(yearCollection, {
       year,
       gifter: gifter.uid,
       giftee: giftee.uid,
