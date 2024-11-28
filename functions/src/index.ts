@@ -77,11 +77,19 @@ export const emailWishlist = https.onRequest(async (req, res) => {
     const { relay_message } = post.msys;
     const { content } = relay_message;
     const { html, text } = content;
+    console.log(`text: ${text}`)
+    console.log(`html: ${html}`)
     const from: string = relay_message.friendly_from;
+    console.log(`email from ${from}`);
     const repo = new FirestoreRepo(firestore);
     const user = await repo.userFromEmail(from);
+    let wishlist = text;
+    try {
+      wishlist = new EmailReplyParser().parseReply(text);
+    } catch (e) {
+      console.log(e);
+    }
     await repo.deleteWishlists(user.uid, currentYear);
-    const wishlist = new EmailReplyParser().parseReply(text);
     await repo.saveList(user.uid, currentYear, wishlist);
     const md = new MarkdownIt({ html: true, linkify: true });
     const htmlList = md.render(wishlist);
@@ -91,7 +99,7 @@ export const emailWishlist = https.onRequest(async (req, res) => {
 
 ${htmlList}
 
-<p><em>To update your list, send Burt another email with your new list.</em></p>`
+<p><em>To update your list, send Burt another email and it will replace your new list.</em></p>`
     await email([from], response, 'Burt got your list!', sparkpostKey.value());
   });
   await Promise.all(objs);
