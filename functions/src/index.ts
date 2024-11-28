@@ -101,6 +101,21 @@ ${htmlList}
 
 <p><em>To update your list, send Burt another email and it will replace your new list.</em></p>`
     await email([from], response, 'Burt got your list!', sparkpostKey.value());
+
+    const shouldEmailMattCopy = true;
+    if (shouldEmailMattCopy) {
+      console.log('sending matt a copy of the email too');
+      const mattEmailContent = `<p>Updated email contents!<p>
+    <p>From: ${from}</p>
+    <p>Wishlist:</p>
+    ${htmlList}`;
+      await email(
+        ["orphum@gmail.com"],
+        mattEmailContent,
+        "Someone updated their wish list",
+        sparkpostKey.value()
+      );
+    }
   });
   await Promise.all(objs);
   res.json({ status: "ok" })
