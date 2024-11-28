@@ -14,7 +14,7 @@ export const makeSecretSantaEmail = (
     <hr>
     ${htmlList}
     <hr>
-    <p>Reminder: not everyone may be in Kansas this year, so you may need to surreptitiously find out where to mail your shipments.</p>
+    <p>Reminder: not everyone may be in Kansas this year; but you should know where to send your gifts.</p>
     <em>🧝‍♀️ Burt the Elf 🧝‍♂️</em>
     `;
 };
