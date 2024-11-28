@@ -84,6 +84,14 @@ export const emailWishlist = https.onRequest(async (req, res) => {
     const repo = new FirestoreRepo(firestore);
     const user = await repo.userFromEmail(from);
     let wishlist = text;
+
+    if (!text) {
+      // Sometimes text content doesn't show
+      // TODO we should send the respondant a failure email,
+      // and also Matt a message when it happens
+      wishlist = html;
+    }
+
     try {
       wishlist = new EmailReplyParser().parseReply(text);
     } catch (e) {
