@@ -35,7 +35,7 @@ jobs:
       - name: Deploy to firebase
         uses: w9jds/firebase-action@master
         env:
-          # GCP_SA_KEY: ${{ secrets.GCP_SA_KEY }}
-          FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
+          GCP_SA_KEY: ${{ secrets.GCP_SA_KEY }}
+          # FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
         with:
           args: deploy --only functions --debug
