@@ -21,7 +21,8 @@ jobs:
           # Examples: 12.x, 10.15.1, >=10.15.0, lts/Hydrogen, 16-nightly, latest, node
 
           # Have to use 16 with firebase-action, as of Oct '23
-          node-version: '20'
+          # Updated to 22 with firebase-action, Nov '25
+          node-version: '22'
       - run: cd functions && npm ci
       - run: cd functions && npm run build
       - name: Make envfile
