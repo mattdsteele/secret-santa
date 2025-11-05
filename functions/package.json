@@ -13,6 +13,8 @@
     "email-reply-parser": "^1.4.1",
     "firebase-admin": "^11",
     "firebase-functions": "^4",
+    "form-data": "^4.0.4",
+    "mailgun.js": "^12.1.1",
     "markdown-it": "^14",
     "sparkpost": "^2.1.4"
   },

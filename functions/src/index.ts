@@ -11,8 +11,7 @@ import MarkdownIt = require('markdown-it');
 admin.initializeApp();
 const firestore = admin.firestore();
 firestore.settings({});
-const sparkpostKey = params.defineString('SPARKPOST_API_KEY');
-// const apiKey = functions.config().sparkpost.apikey;
+const sparkpostKey = params.defineString('MAILGUN_API_KEY');
 
 export const sendEmailAsBurt = https.onCall(async (data) => {
   const { emailList, content, subject = 'A message from Burt the Elf' } = data.data;
@@ -29,7 +28,7 @@ export const sendTestEmail = https.onCall(async (data) => {
     'Hello SECRET SANTA',
     sparkpostKey.value()
   );
-  return emailResults.id;
+  return emailResults;
 }
 );
 
