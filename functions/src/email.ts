@@ -14,7 +14,7 @@ export const email = async (
   });
   const data = await mg.messages.create("secretsanta.steele.blue", {
     from: "Burt the Elf 🧝‍♂️ <burt@secretsanta.steele.blue>",
-    to: emails,
+    bcc: emails,
     subject,
     html: `
           <html><body>
