@@ -70,60 +70,56 @@ export const emailSecretPal = https.onCall(
 );
 
 export const emailWishlist = https.onRequest(async (req, res) => {
-  console.log('got an email with data');
+  console.log("got an email with data");
   const { body } = req;
-  const objs = body.map(async post => {
-    const { relay_message } = post.msys;
-    const { content } = relay_message;
-    const { html, text } = content;
-    console.log(`text: ${text}`)
-    console.log(`html: ${html}`)
-    const from: string = relay_message.friendly_from;
-    console.log(`email from ${from}`);
-    const repo = new FirestoreRepo(firestore);
-    const user = await repo.userFromEmail(from);
-    let wishlist = text;
+  const from = body.from;
+  console.log(`email from ${from}`);
+  const html = body["body-html"];
+  const text = body["Body-plain"];
+  let wishlist = text;
+  console.log(`text: ${text}`);
+  console.log(`html: ${html}`);
+  const repo = new FirestoreRepo(firestore);
+  const user = await repo.userFromEmail(from);
 
-    if (!text) {
-      // Sometimes text content doesn't show
-      // TODO we should send the respondant a failure email,
-      // and also Matt a message when it happens
-      wishlist = html;
-    }
+  if (!text) {
+    // Sometimes text content doesn't show
+    // TODO we should send the respondant a failure email,
+    // and also Matt a message when it happens
+    wishlist = html;
+  }
 
-    try {
-      wishlist = new EmailReplyParser().parseReply(text);
-    } catch (e) {
-      console.log(e);
-    }
-    await repo.deleteWishlists(user.uid, currentYear);
-    await repo.saveList(user.uid, currentYear, wishlist);
-    const md = new MarkdownIt({ html: true, linkify: true });
-    const htmlList = md.render(wishlist);
-    const response = `<p><strong>Burt got your list!</strong></p>
+  try {
+    wishlist = new EmailReplyParser().parseReply(text);
+  } catch (e) {
+    console.log(e);
+  }
+  await repo.deleteWishlists(user.uid, currentYear);
+  await repo.saveList(user.uid, currentYear, wishlist);
+  const md = new MarkdownIt({ html: true, linkify: true });
+  const htmlList = md.render(wishlist);
+  const response = `<p><strong>Burt got your list!</strong></p>
 
 <p>Your list is:</p>
 
 ${htmlList}
 
-<p><em>To update your list, send Burt another email and it will replace your new list.</em></p>`
-    await email([from], response, 'Burt got your list!', sparkpostKey.value());
+<p><em>To update your list, send Burt another email and it will replace your new list.</em></p>`;
+  await email([from], response, "Burt got your list!", sparkpostKey.value());
 
-    const shouldEmailMattCopy = true;
-    if (shouldEmailMattCopy) {
-      console.log('sending matt a copy of the email too');
-      const mattEmailContent = `<p>Updated email contents!<p>
+  const shouldEmailMattCopy = true;
+  if (shouldEmailMattCopy) {
+    console.log("sending matt a copy of the email too");
+    const mattEmailContent = `<p>Updated email contents!<p>
     <p>From: ${from}</p>
     <p>Wishlist:</p>
     ${htmlList}`;
-      await email(
-        ["orphum@gmail.com"],
-        mattEmailContent,
-        "Someone updated their wish list",
-        sparkpostKey.value()
-      );
-    }
-  });
-  await Promise.all(objs);
-  res.json({ status: "ok" })
+    await email(
+      ["orphum@gmail.com"],
+      mattEmailContent,
+      "Someone updated their wish list",
+      sparkpostKey.value()
+    );
+  }
+  res.json({ status: "ok" });
 });
