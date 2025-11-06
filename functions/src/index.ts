@@ -73,9 +73,10 @@ export const emailWishlist = https.onRequest(async (req, res) => {
   console.log("got an email with data");
   const { body } = req;
   const from = body.from;
-  console.log(`email from ${from}`);
+  const sender = body.sender;
+  console.log(`email from ${from}, sender ${sender}`);
   const html = body["body-html"];
-  const text = body["Body-plain"];
+  const text = body["body-plain"];
   let wishlist = text;
   console.log(`text: ${text}`);
   console.log(`html: ${html}`);
