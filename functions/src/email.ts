@@ -12,9 +12,10 @@ export const email = async (
     username: "orphum",
     key: process.env.MAILGUN_API_KEY,
   });
+  for (const email of emails) {
   const data = await mg.messages.create("secretsanta.steele.blue", {
     from: "Burt the Elf 🧝‍♂️ <burt@secretsanta.steele.blue>",
-    bcc: emails,
+    to: email,
     subject,
     html: `
           <html><body>
@@ -22,5 +23,6 @@ export const email = async (
         </body></html>
         `,
   });
-  return JSON.stringify(data);
+  }
+  return JSON.stringify({done: true});
 };
