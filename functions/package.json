@@ -23,7 +23,7 @@
   "devDependencies": {
     "@types/markdown-it": "^14",
     "@types/node": "^24",
-    "firebase-tools": "^12",
+    "firebase-tools": "^13",
     "typescript": "^5"
   },
   "private": true
