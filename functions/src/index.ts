@@ -1,18 +1,15 @@
+import EmailReplyParser from 'email-reply-parser';
 import * as admin from 'firebase-admin';
-import * as https from 'firebase-functions/v2/https';
 import * as params from 'firebase-functions/params';
 import * as functions from 'firebase-functions/v1';
-import { email } from './email';
-import { FirestoreRepo } from './firestore-repo';
-// import busboy = require('async-busboy');
-// import formidable = require('formidable');
+import * as https from 'firebase-functions/v2/https';
 import { formidable } from "formidable";
-// import formidable from 'formidable-mini';
-import { makeSecretSantaEmail } from './emailTemplates';
-const EmailReplyParser =  require('email-reply-parser');
-import MarkdownIt = require('markdown-it');
-import { Readable } from 'stream';
 import { IncomingMessage } from 'http';
+import { Readable } from 'stream';
+import { email } from './email';
+import { makeSecretSantaEmail } from './emailTemplates';
+import { FirestoreRepo } from './firestore-repo';
+import MarkdownIt = require('markdown-it');
 
 admin.initializeApp();
 const firestore = admin.firestore();

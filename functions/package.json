@@ -10,13 +10,11 @@
   },
   "main": "lib/index.js",
   "dependencies": {
-    "async-busboy": "^1.1.0",
     "email-reply-parser": "^2",
     "firebase-admin": "^13",
     "firebase-functions": "^7",
     "form-data": "^4.0.4",
     "formidable": "^3.5.4",
-    "formidable-mini": "^0.3.0",
     "mailgun.js": "^12.1.1",
     "markdown-it": "^14"
   },
@@ -24,7 +22,6 @@
     "node": "22"
   },
   "devDependencies": {
-    "@types/async-busboy": "^1.1.4",
     "@types/formidable": "^3.4.6",
     "@types/markdown-it": "^14",
     "@types/node": "^24",
