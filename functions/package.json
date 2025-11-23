@@ -10,7 +10,7 @@
   },
   "main": "lib/index.js",
   "dependencies": {
-    "email-reply-parser": "^2",
+    "email-reply-parser": "~2.2.1",
     "firebase-admin": "^13",
     "firebase-functions": "^7",
     "form-data": "^4.0.4",
