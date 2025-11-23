@@ -75,7 +75,8 @@ export const emailWishlist = https.onRequest(async (req, res) => {
   const { body, rawBody } = req;
   console.log(JSON.stringify(req.headers));
   const {files, fields} =  await busboy(req);
-  console.log(JSON.stringify(files));
+  console.log("parsed with busboy");
+  // console.log(JSON.stringify(files));
   console.log(JSON.stringify(fields));
   const from: string = fields.sender as string;
   const html = fields["body-html"] as string;
