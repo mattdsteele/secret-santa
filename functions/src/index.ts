@@ -101,6 +101,8 @@ export const emailWishlist = https.onRequest(async (req, res) => {
     })
   })
 
+  const from = fields.sender[0];
+
   let hasForbiddenAttachment = false;
   const forbiddenAttachments = ['application/msword','application/vnd.openxmlformats-officedocument.wordprocessingml.document'];
   forbiddenAttachments.forEach(a => {
@@ -108,8 +110,16 @@ export const emailWishlist = https.onRequest(async (req, res) => {
       hasForbiddenAttachment = true;
     }
   });
+
+  if (hasForbiddenAttachment) {
+    const response = `<b>Uh oh!</b>
+    <p>Looks like your list included a Word document. Unfortunately Burt's supercomputer can't handle those yet.</p>.
+    <p>Please resend your list to Burt, directly in the email body.</p>`;
+    await email([from], response, "Burt ran into an issue :(", sparkpostKey.value());
+    res.json({ status: "ok" });
+    return;
+  }
   
-  const from = fields.sender[0];
   const html = fields["body-html"][0];
   const text = fields["body-plain"][0];
   let wishlist = text;
@@ -125,14 +135,6 @@ export const emailWishlist = https.onRequest(async (req, res) => {
     wishlist = html;
   }
 
-  if (hasForbiddenAttachment) {
-    const response = `<b>Uh oh!</b>
-    <p>Looks like your list included a Word document. Unfortunately Burt's supercomputer can't handle those yet.</p>.
-    <p>Please resend your list to Burt, directly in the email body.</p>`;
-    await email([from], response, "Burt ran into an issue :(", sparkpostKey.value());
-    res.json({ status: "ok" });
-    return;
-  }
 
   try {
     wishlist = new EmailReplyParser().parseReply(text);
