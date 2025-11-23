@@ -72,6 +72,8 @@ export const emailSecretPal = https.onCall(
 export const emailWishlist = https.onRequest(async (req, res) => {
   console.log("got an email with data");
   const { body } = req;
+  console.log(JSON.stringify(body));
+  console.log(JSON.stringify(req.headers));
   const from = body.sender;
   const html = body["body-html"];
   const text = body["body-plain"];
