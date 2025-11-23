@@ -1,4 +1,4 @@
-import EmailReplyParser from 'email-reply-parser';
+import EmailReplyParser = require('email-reply-parser');
 import * as admin from 'firebase-admin';
 import * as params from 'firebase-functions/params';
 import * as functions from 'firebase-functions/v1';
