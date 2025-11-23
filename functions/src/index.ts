@@ -93,6 +93,22 @@ export const emailWishlist = https.onRequest(async (req, res) => {
   console.log("parsed with stream approach");
   console.log(JSON.stringify(fields));
   console.log(JSON.stringify(files));
+  const fileNames = Object.keys(files);
+  let mimeTypes = [];
+  fileNames.forEach(f => {
+    files[f].forEach(f => {
+      mimeTypes.push(f.mimetype);
+    })
+  })
+
+  let hasForbiddenAttachment = false;
+  const forbiddenAttachments = ['application/msword','application/vnd.openxmlformats-officedocument.wordprocessingml.document'];
+  forbiddenAttachments.forEach(a => {
+    if (mimeTypes.includes(a)) {
+      hasForbiddenAttachment = true;
+    }
+  });
+  
   const from = fields.sender[0];
   const html = fields["body-html"][0];
   const text = fields["body-plain"][0];
@@ -107,6 +123,15 @@ export const emailWishlist = https.onRequest(async (req, res) => {
     // TODO we should send the respondant a failure email,
     // and also Matt a message when it happens
     wishlist = html;
+  }
+
+  if (hasForbiddenAttachment) {
+    const response = `<b>Uh oh!</b>
+    <p>Looks like your list included a Word document. Unfortunately Burt's supercomputer can't handle those yet.</p>.
+    <p>Please resend your list to Burt, directly in the email body.</p>`;
+    await email([from], response, "Burt ran into an issue :(", sparkpostKey.value());
+    res.json({ status: "ok" });
+    return;
   }
 
   try {
