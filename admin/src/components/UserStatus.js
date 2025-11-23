@@ -16,6 +16,9 @@ const mapDispatchToProps = (dispatch) => {
 };
 
 class userStatus extends Component {
+  state = {
+    showHtml: false
+  }
   componentDidMount() {
     this.props.onConnect();
   }
@@ -52,7 +55,22 @@ class userStatus extends Component {
             this.props.lists
               .filter((list) => list.year === this.props.year)
               .map((list) => {
-                return <li key={list.user}>{this.nameOfUser(list.user)}</li>;
+                return (
+                  <li key={list.user}>
+                    {this.nameOfUser(list.user)}
+                    {this.state.showHtml ? (
+                      <div dangerouslySetInnerHTML={{__html : list.list}}></div>
+                    ) : (
+                      <pre
+                        onClick={() => {
+                          this.setState({ showHtml: true });
+                        }}
+                      >
+                        <code>{JSON.stringify(list.list)}</code>
+                      </pre>
+                    )}
+                  </li>
+                );
               })}
         </ul>
 
