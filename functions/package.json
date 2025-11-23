@@ -10,6 +10,7 @@
   },
   "main": "lib/index.js",
   "dependencies": {
+    "async-busboy": "^1.1.0",
     "email-reply-parser": "^2",
     "firebase-admin": "^13",
     "firebase-functions": "^7",
@@ -21,6 +22,7 @@
     "node": "22"
   },
   "devDependencies": {
+    "@types/async-busboy": "^1.1.4",
     "@types/markdown-it": "^14",
     "@types/node": "^24",
     "firebase-tools": "^13",

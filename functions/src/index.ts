@@ -4,6 +4,7 @@ import * as params from 'firebase-functions/params';
 import * as functions from 'firebase-functions/v1';
 import { email } from './email';
 import { FirestoreRepo } from './firestore-repo';
+import busboy = require('async-busboy');
 import { makeSecretSantaEmail } from './emailTemplates';
 const EmailReplyParser =  require('email-reply-parser');
 import MarkdownIt = require('markdown-it');
@@ -71,12 +72,14 @@ export const emailSecretPal = https.onCall(
 
 export const emailWishlist = https.onRequest(async (req, res) => {
   console.log("got an email with data");
-  const { body } = req;
-  console.log(JSON.stringify(body));
+  const { body, rawBody } = req;
   console.log(JSON.stringify(req.headers));
-  const from = body.sender;
-  const html = body["body-html"];
-  const text = body["body-plain"];
+  const {files, fields} =  await busboy(req);
+  console.log(JSON.stringify(files));
+  console.log(JSON.stringify(fields));
+  const from: string = fields.sender as string;
+  const html = fields["body-html"] as string;
+  const text = fields["body-plain"] as string;
   let wishlist = text;
   console.log(`text: ${text}`);
   console.log(`html: ${html}`);
