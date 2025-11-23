@@ -59,7 +59,7 @@ class userStatus extends Component {
                   <li key={list.user}>
                     {this.nameOfUser(list.user)}
                     {this.state.showHtml ? (
-                      <div dangerouslySetInnerHTML={{__html : list.list}}></div>
+                      <div dangerouslySetInnerHTML={{__html : list.list}} onClick={() => this.setState({showHtml: false})}></div>
                     ) : (
                       <pre
                         onClick={() => {
