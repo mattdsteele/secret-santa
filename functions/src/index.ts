@@ -11,6 +11,8 @@ import { formidable } from "formidable";
 import { makeSecretSantaEmail } from './emailTemplates';
 const EmailReplyParser =  require('email-reply-parser');
 import MarkdownIt = require('markdown-it');
+import { Readable } from 'stream';
+import { IncomingMessage } from 'http';
 
 admin.initializeApp();
 const firestore = admin.firestore();
@@ -77,11 +79,20 @@ export const emailWishlist = https.onRequest(async (req, res) => {
   console.log("got an email with data");
   const { body, rawBody } = req;
   console.log(JSON.stringify(req.headers));
-  const form = formidable();
+  const form = formidable({keepExtensions: true});
+  const stream = new Readable();
+  stream.push(rawBody);
+  stream.push(null);
+   (stream as IncomingMessage).headers = {
+    ...req.headers,
+    'content-length': rawBody.length.toString()
+   }
+  console.log("about to parse");
+  const [fields] = await form.parse(stream as IncomingMessage);
   // const [fields, files] =  await form.parse(req);
-  const [fields, files]= await form.parse(req);
+  // const [fields, files]= await form.parse(req);
   // const {files, fields} =  await busboy(req);
-  console.log("parsed with formidable-heavy");
+  console.log("parsed with stream approach");
   // console.log(JSON.stringify(files));
   console.log(JSON.stringify(fields));
   const from = fields.sender[0];
