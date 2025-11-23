@@ -88,13 +88,11 @@ export const emailWishlist = https.onRequest(async (req, res) => {
     'content-length': rawBody.length.toString()
    }
   console.log("about to parse");
-  const [fields] = await form.parse(stream as IncomingMessage);
-  // const [fields, files] =  await form.parse(req);
-  // const [fields, files]= await form.parse(req);
-  // const {files, fields} =  await busboy(req);
+  // https://github.com/node-formidable/formidable/issues/1029
+  const [fields, files] = await form.parse(stream as IncomingMessage);
   console.log("parsed with stream approach");
-  // console.log(JSON.stringify(files));
   console.log(JSON.stringify(fields));
+  console.log(JSON.stringify(files));
   const from = fields.sender[0];
   const html = fields["body-html"][0];
   const text = fields["body-plain"][0];
