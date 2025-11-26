@@ -5,6 +5,7 @@
   "dependencies": {
     "commonmark": "^0.31.2",
     "firebase": "^12",
+    "markdown-it": "^14.1.0",
     "react": "^18",
     "react-dom": "^18",
     "react-redux": "^9",

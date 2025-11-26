@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { getAllLists } from '../store/actions';
+import MarkdownIt from 'markdown-it';
 
 const mapStateToProps = ({ users, lists }) => {
   return {
@@ -55,11 +56,13 @@ class userStatus extends Component {
             this.props.lists
               .filter((list) => list.year === this.props.year)
               .map((list) => {
+                const md = new MarkdownIt({ html: true, linkify: true });
+                let htmlList = md.render(list.list);
                 return (
                   <li key={list.user}>
                     {this.nameOfUser(list.user)}
                     {this.state.showHtml ? (
-                      <div dangerouslySetInnerHTML={{__html : list.list}} onClick={() => this.setState({showHtml: false})}></div>
+                      <div dangerouslySetInnerHTML={{__html : htmlList}} onClick={() => this.setState({showHtml: false})}></div>
                     ) : (
                       <pre
                         onClick={() => {
