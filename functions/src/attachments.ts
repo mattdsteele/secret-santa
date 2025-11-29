@@ -12,7 +12,7 @@ export const findImages = (html: string): string[] => {
     return items;
 };
 export const base64String = (metadata: formidable.File) => {
-    const base64String = readFileSync(metadata.filepath, {encoding: 'base64url'});
+    const base64String = readFileSync(metadata.filepath, {encoding: 'base64'});
     return `data:${metadata.mimetype};base64,${base64String}`;
 };
 export const replaceAllImages = (html: string, attachments: formidable.Files<string>) => {
