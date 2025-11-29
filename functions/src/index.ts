@@ -35,17 +35,7 @@ export const sendTestEmail = https.onCall(async (data) => {
 }
 );
 
-export const makeDefaultLists = https.onCall(async ({ data }) => {
-  const { year } = data;
-  console.log('Making default lists!', year);
-  const repo = new FirestoreRepo(firestore);
-  const responses = await Promise.all(
-    (await repo.activeUsers())
-      .map((userids) => userids.uid)
-      .map((uid) => repo.createDefaultList(uid, year))
-  );
-  console.log(`generated ${responses.length} lists`);
-});
+
 const currentYear = new Date().getFullYear();
 
 export const onUserCreate = functions.auth.user().onCreate(async (user) => {
