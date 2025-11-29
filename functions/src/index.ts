@@ -10,6 +10,7 @@ import { email } from './email';
 import { makeSecretSantaEmail } from './emailTemplates';
 import { FirestoreRepo } from './firestore-repo';
 import MarkdownIt = require('markdown-it');
+import { replaceAllImages } from './attachments';
 
 admin.initializeApp();
 const firestore = admin.firestore();
@@ -115,6 +116,7 @@ export const emailWishlist = https.onRequest(async (req, res) => {
   const repo = new FirestoreRepo(firestore);
   const user = await repo.userFromEmail(from);
 
+  const useHtml = true;
   if (!text) {
     // Sometimes text content doesn't show
     // TODO we should send the respondant a failure email,
@@ -122,16 +124,23 @@ export const emailWishlist = https.onRequest(async (req, res) => {
     wishlist = html;
   }
 
-
-  try {
-    wishlist = new EmailReplyParser().parseReply(text);
-  } catch (e) {
-    console.log(e);
+  let htmlList = '';
+  if (useHtml) {
+    wishlist = html;
+    // embed attachments
+    wishlist = replaceAllImages(wishlist, files);
+  } else {
+    try {
+      wishlist = new EmailReplyParser().parseReply(text);
+    } catch (e) {
+      console.log(e);
+    }
+    await repo.deleteWishlists(user.uid, currentYear);
+    await repo.saveList(user.uid, currentYear, wishlist);
+    const md = new MarkdownIt({ html: true, linkify: true });
+    htmlList = md.render(wishlist);
   }
-  await repo.deleteWishlists(user.uid, currentYear);
-  await repo.saveList(user.uid, currentYear, wishlist);
-  const md = new MarkdownIt({ html: true, linkify: true });
-  const htmlList = md.render(wishlist);
+
   const response = `<p><strong>Burt got your list!</strong></p>
 
 <p>Your list is:</p>

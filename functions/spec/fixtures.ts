@@ -26,7 +26,7 @@ export const attachments = {
     {
       originalFilename: "image.png",
       mimetype: "image/png",
-      filepath: "/tmp/qe7dnaf7e8opkhwssckpuywd1.png",
+      filepath: "./spec/img.png",
       newFilename: "qe7dnaf7e8opkhwssckpuywd1.png",
       size: 12316,
       mtime: "2025-11-28T01:24:41.978Z",
@@ -35,11 +35,11 @@ export const attachments = {
   "attachment-2": [
     {
       mtime: "2025-11-28T01:24:41.978Z",
-      originalFilename: "image.png",
-      filepath: "/tmp/ung9phdy8c4dtsejnlcrikwdk.png",
+      originalFilename: "image.jpg",
+      filepath: "./spec/img.jpg",
       newFilename: "ung9phdy8c4dtsejnlcrikwdk.png",
       size: 15867,
-      mimetype: "image/png",
+      mimetype: "image/jpeg",
     },
   ],
 };

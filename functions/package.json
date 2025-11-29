@@ -6,10 +6,12 @@
     "shell": "npm run build && firebase functions:shell",
     "start": "npm run shell",
     "deploy": "firebase deploy --only functions",
+    "test": "vitest",
     "logs": "firebase functions:log"
   },
   "main": "lib/index.js",
   "dependencies": {
+    "cheerio": "^1.1.2",
     "email-reply-parser": "~2.2.1",
     "firebase-admin": "^13",
     "firebase-functions": "^7",
@@ -26,7 +28,8 @@
     "@types/markdown-it": "^14",
     "@types/node": "^24",
     "firebase-tools": "^13",
-    "typescript": "^5"
+    "typescript": "^5",
+    "vitest": "^4.0.14"
   },
   "private": true
 }
