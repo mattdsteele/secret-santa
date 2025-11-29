@@ -116,18 +116,20 @@ export const emailWishlist = https.onRequest(async (req, res) => {
   const repo = new FirestoreRepo(firestore);
   const user = await repo.userFromEmail(from);
 
-  const useHtml = true;
   if (!text) {
     // Sometimes text content doesn't show
     // TODO we should send the respondant a failure email,
     // and also Matt a message when it happens
     wishlist = html;
   }
-
   let htmlList = '';
+
+  const useHtml = false;
   if (useHtml) {
     wishlist = html;
     // embed attachments
+    // fixme this will not work, alas
+    // https://stackoverflow.com/questions/16242489/send-a-base64-image-in-html-email
     htmlList = replaceAllImages(wishlist, files);
     console.log(`new html list: ${htmlList}`);
   } else {
