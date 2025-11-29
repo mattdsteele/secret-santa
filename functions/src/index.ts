@@ -128,7 +128,7 @@ export const emailWishlist = https.onRequest(async (req, res) => {
   if (useHtml) {
     wishlist = html;
     // embed attachments
-    wishlist = replaceAllImages(wishlist, files);
+    htmlList = replaceAllImages(wishlist, files);
   } else {
     try {
       wishlist = new EmailReplyParser().parseReply(text);
