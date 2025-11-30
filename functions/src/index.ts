@@ -83,12 +83,6 @@ export const emailWishlist = https.onRequest(async (req, res) => {
   let mimeTypes = [];
   fileNames.forEach(f => {
     files[f].forEach(async f => {
-      // will try to perform upload here
-      console.log('will be trying to upload here');
-      const storageRef = ref(storage, `attachments/${f.newFilename}`);
-      const firebaseFile = await uploadString(storageRef, base64String(f, false), 'base64', {contentType: f.mimetype});
-      const dlUrl = await getDownloadURL(firebaseFile.ref);
-      console.log(dlUrl);
       // https://firebase.google.com/docs/storage/web/upload-files#upload_from_a_string
       mimeTypes.push(f.mimetype);
     })
@@ -135,7 +129,7 @@ export const emailWishlist = https.onRequest(async (req, res) => {
     // embed attachments
     // fixme this will not work, alas
     // https://stackoverflow.com/questions/16242489/send-a-base64-image-in-html-email
-    htmlList = replaceAllImages(wishlist, files);
+    htmlList = await replaceAllImages(wishlist, files, storage);
     console.log(`new html list: ${htmlList}`);
   } else {
     try {
