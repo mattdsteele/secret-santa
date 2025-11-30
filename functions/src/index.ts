@@ -92,7 +92,7 @@ export const emailWishlist = https.onRequest(async (req, res) => {
   })
   
   // Basic upload test
-  const storageRef = ref(storage);
+  const storageRef = ref(storage, 'attachments/foobar.txt');
   const firebaseFile = await uploadString(storageRef, 'hello friend')
   const dlUrl = await getDownloadURL(firebaseFile.ref);
   console.log(`dl url is ${dlUrl}`);
