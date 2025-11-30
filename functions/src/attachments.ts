@@ -46,7 +46,7 @@ export const replaceAllImages = async (
     const img = images[i];
     const a = atts[i];
     const dlUrl = await uploadAndGetDownloadUrl(a, storage);
-    html = html.replace(img, base64String(a));
+    html = html.replace(img, base64String(a, false));
   }
   return html;
 };
