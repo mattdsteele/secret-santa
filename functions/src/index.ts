@@ -3,7 +3,7 @@ import * as admin from 'firebase-admin';
 import * as params from 'firebase-functions/params';
 import * as https from 'firebase-functions/v2/https';
 import {initializeApp} from 'firebase/app';
-import {getStorage} from 'firebase/storage';
+import {getDownloadURL, getStorage, ref, uploadString} from 'firebase/storage';
 import { formidable } from "formidable";
 import { IncomingMessage } from 'http';
 import { Readable } from 'stream';
@@ -82,13 +82,20 @@ export const emailWishlist = https.onRequest(async (req, res) => {
   const fileNames = Object.keys(files);
   let mimeTypes = [];
   fileNames.forEach(f => {
-    files[f].forEach(f => {
+    files[f].forEach(async f => {
       // will try to perform upload here
       console.log('will be trying to upload here');
+
       // https://firebase.google.com/docs/storage/web/upload-files#upload_from_a_string
       mimeTypes.push(f.mimetype);
     })
   })
+  
+  // Basic upload test
+  const storageRef = ref(storage);
+  const firebaseFile = await uploadString(storageRef, 'hello friend')
+  const dlUrl = await getDownloadURL(firebaseFile.ref);
+  console.log(`dl url is ${dlUrl}`);
 
   const from = fields.sender[0];
 
