@@ -1,7 +1,6 @@
 import EmailReplyParser = require('email-reply-parser');
 import * as admin from 'firebase-admin';
 import * as params from 'firebase-functions/params';
-import * as functions from 'firebase-functions/v1';
 import * as https from 'firebase-functions/v2/https';
 import { formidable } from "formidable";
 import { IncomingMessage } from 'http';
@@ -38,14 +37,6 @@ export const sendTestEmail = https.onCall(async (data) => {
 
 
 const currentYear = new Date().getFullYear();
-
-export const onUserCreate = functions.auth.user().onCreate(async (user) => {
-  const { uid } = user;
-  const year = currentYear;
-  const repo = new FirestoreRepo(firestore);
-  await repo.createDefaultList(uid, year);
-  console.log(`Added default list for ${uid}`);
-});
 
 export const emailSecretPal = https.onCall(
   async ({ data }) => {
