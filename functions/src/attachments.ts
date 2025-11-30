@@ -47,6 +47,7 @@ export const replaceAllImages = async (
     const a = atts[i];
     if (!a) {
       console.log(`did not have attachment idx ${i}, bypassing`);
+      console.log(`img was: ${img}`)
     } else {
       const dlUrl = await uploadAndGetDownloadUrl(a, storage);
       html = html.replace(img, dlUrl);
