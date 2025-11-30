@@ -11,9 +11,10 @@ export const findImages = (html: string): string[] => {
     })
     return items;
 };
-export const base64String = (metadata: formidable.File) => {
+export const base64String = (metadata: formidable.File, includePreamble = true) => {
     const base64String = readFileSync(metadata.filepath, {encoding: 'base64'});
-    return `data:${metadata.mimetype};base64,${base64String}`;
+    const preamble = `data:${metadata.mimetype};base64,`;
+    return `${includePreamble ? preamble : ''}${base64String}`;
 };
 export const replaceAllImages = (html: string, attachments: formidable.Files<string>) => {
     const images = findImages(html);

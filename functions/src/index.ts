@@ -11,7 +11,7 @@ import { email } from './email';
 import { makeSecretSantaEmail } from './emailTemplates';
 import { FirestoreRepo } from './firestore-repo';
 import MarkdownIt = require('markdown-it');
-import { replaceAllImages } from './attachments';
+import { base64String, replaceAllImages } from './attachments';
 
 const settings = {
   storageBucket: "steele-secret-santa.appspot.com",
@@ -85,17 +85,14 @@ export const emailWishlist = https.onRequest(async (req, res) => {
     files[f].forEach(async f => {
       // will try to perform upload here
       console.log('will be trying to upload here');
-
+      const storageRef = ref(storage, `attachments/${f.newFilename}`);
+      const firebaseFile = await uploadString(storageRef, base64String(f, false), 'base64', {contentType: f.mimetype});
+      const dlUrl = await getDownloadURL(firebaseFile.ref);
+      console.log(dlUrl);
       // https://firebase.google.com/docs/storage/web/upload-files#upload_from_a_string
       mimeTypes.push(f.mimetype);
     })
   })
-  
-  // Basic upload test
-  const storageRef = ref(storage, 'attachments/foobar.txt');
-  const firebaseFile = await uploadString(storageRef, 'hello friend')
-  const dlUrl = await getDownloadURL(firebaseFile.ref);
-  console.log(`dl url is ${dlUrl}`);
 
   const from = fields.sender[0];
 
