@@ -2,6 +2,8 @@ import EmailReplyParser = require('email-reply-parser');
 import * as admin from 'firebase-admin';
 import * as params from 'firebase-functions/params';
 import * as https from 'firebase-functions/v2/https';
+import {initializeApp} from 'firebase/app';
+import {getStorage} from 'firebase/storage';
 import { formidable } from "formidable";
 import { IncomingMessage } from 'http';
 import { Readable } from 'stream';
@@ -11,7 +13,12 @@ import { FirestoreRepo } from './firestore-repo';
 import MarkdownIt = require('markdown-it');
 import { replaceAllImages } from './attachments';
 
-admin.initializeApp();
+const settings = {
+  storageBucket: "steele-secret-santa.appspot.com",
+};
+admin.initializeApp(settings);
+const app = initializeApp(settings);
+const storage = getStorage(app);
 const firestore = admin.firestore();
 firestore.settings({});
 const sparkpostKey = params.defineString('MAILGUN_API_KEY');
@@ -76,6 +83,9 @@ export const emailWishlist = https.onRequest(async (req, res) => {
   let mimeTypes = [];
   fileNames.forEach(f => {
     files[f].forEach(f => {
+      // will try to perform upload here
+      console.log('will be trying to upload here');
+      // https://firebase.google.com/docs/storage/web/upload-files#upload_from_a_string
       mimeTypes.push(f.mimetype);
     })
   })
