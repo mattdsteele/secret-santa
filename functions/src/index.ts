@@ -123,7 +123,7 @@ export const emailWishlist = https.onRequest(async (req, res) => {
   }
   let htmlList = '';
 
-  const useHtml = false;
+  const useHtml = true;
   if (useHtml) {
     wishlist = html;
     // embed attachments
