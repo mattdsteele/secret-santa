@@ -30,3 +30,5 @@ _(Include Websites if Appropriate, For Clothing List Sizes and Colors)_
 **Remember, you are limited to $50 or less**
 
 `;
+
+export const encodedWishListItems = encodeURIComponent(defaultWishlist);
