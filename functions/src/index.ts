@@ -130,7 +130,9 @@ export const emailWishlist = https.onRequest(async (req, res) => {
     // fixme this will not work, alas
     // https://stackoverflow.com/questions/16242489/send-a-base64-image-in-html-email
     htmlList = await replaceAllImages(wishlist, files, storage);
-    console.log(`new html list: ${htmlList}`);
+    
+    wishlist = htmlList;
+    console.log(`new html list: ${wishlist}`);
   } else {
     try {
       wishlist = new EmailReplyParser().parseReply(text);
