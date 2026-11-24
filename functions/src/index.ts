@@ -12,7 +12,7 @@ import { makeSecretSantaEmail } from './emailTemplates';
 import { FirestoreRepo } from './firestore-repo';
 import MarkdownIt = require('markdown-it');
 import { base64String, replaceAllImages } from './attachments';
-
+ 
 const settings = {
   storageBucket: "steele-secret-santa.appspot.com",
 };
