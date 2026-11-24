@@ -137,8 +137,11 @@ export const emailWishlist = https.onRequest(async (req, res) => {
     } catch (e) {
       console.log(e);
     }
+    console.log(`deleting existing list for user ${user.uid} in year ${currentYear}`);
     await repo.deleteWishlists(user.uid, currentYear);
+    console.log(`saving list for user ${user.uid} in year ${currentYear}`);
     await repo.saveList(user.uid, currentYear, wishlist);
+    console.log('saved');
     const md = new MarkdownIt({ html: true, linkify: true });
     htmlList = md.render(wishlist);
   }
